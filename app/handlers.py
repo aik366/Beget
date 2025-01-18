@@ -24,34 +24,36 @@ async def cmd_start(message: Message, state: FSMContext):
 
 
 @router.message(Command('help'))
-async def cmd_help(message: Message):
+async def cmd_help(message: Message, state: FSMContext):
     await message.answer('Вы нажали на кнопку помощи')
+    await state.clear()
 
 
 @router.message(Command('admin'))
-async def cmd_admin(message: Message):
+async def cmd_admin(message: Message, state: FSMContext):
     if message.from_user.id != MY_ID:
         await message.answer('Вы не администратор')
         return
     await message.answer('Вы нажали на кнопку администратора', reply_markup=kb.admin)
+    await state.clear()
 
 
-@router.message(F.text == '✖ Отмена')
+@router.message(F.text == '❌Отмена')
 async def add_user_data(message: Message, state: FSMContext):
     await message.answer("Действие отменено")
     await state.clear()
 
 
-@router.message(F.text == 'Просмотр данных')
+@router.message(F.text == '👁️Просмотр данных')
 async def add_user_data(message: Message, state: FSMContext):
     await message.answer(f"{await db.db_select()}")
     await state.clear()
 
 
-@router.message(F.text == 'Добавить данные')
+@router.message(F.text == '🆕Добавить данные')
 async def add_user_data(message: Message, state: FSMContext):
     await state.set_state(Reg.add_user)
-    await message.answer('Введите Ф.И. и дату рождения\nПример:\nИванов Иван 30.01.2000')
+    await message.answer('Введите Ф.И. и дату рождения\nПример: 👇\nИванов Иван 30.01.2000')
 
 
 @router.message(Reg.add_user)
@@ -63,7 +65,7 @@ async def add_user_data(message: Message, state: FSMContext):
     await state.clear()
 
 
-@router.message(F.text == 'Удалить данные')
+@router.message(F.text == '🗑️Удалить данные')
 async def add_user_data(message: Message, state: FSMContext):
     await state.set_state(Reg.del_user)
     await message.answer('Введите Ф.И.\nПример: Иванов Иван')
@@ -84,4 +86,3 @@ async def file_open(message: Message):
     with open("DATA/33.txt", "r") as file:
         f = file.read()
         await message.answer(f"{f}")
-
