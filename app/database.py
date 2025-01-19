@@ -9,6 +9,18 @@ data = str(data.strftime("%d-%m"))
 delta_days = str(delta_days.strftime("%d-%m"))
 
 
+async def get_data(day: str, month: str):
+    day = int(day.rstrip('0'))
+    month = int(month.rstrip('0'))
+    teachers_day = date(datetime.now().year, month, day)
+    today = date.today()
+    if teachers_day > today:
+        return (teachers_day - today).days
+    else:
+        teachers_day = date(datetime.now().year + 1, month, day)
+        return (teachers_day - today).days
+
+
 async def create_table():
     async with aiosqlite.connect('../DATA/user.db') as db:
         await db.execute(
@@ -58,8 +70,9 @@ async def db_select():
         data_txt = ""
         for el in users:
             tmp = str(el[3]).split()[0].split('-')
+            data_get = await get_data(tmp[2], tmp[1])
             tmp = f"{tmp[2]}.{tmp[1]}.{tmp[0]}"
-            data_txt += f"{el[1]} {el[2]} {tmp}\n"
+            data_txt += f"{el[1]} {el[2]} {tmp} ({data_get})\n"
         return data_txt
 
 
@@ -118,5 +131,7 @@ if __name__ == '__main__':
     # asyncio.run(add_column())
     # asyncio.run(add_db("Галстян Айк 22.04.1972"))
     # asyncio.run(db_update(428030603, 'Admin'))
-    # print(asyncio.run(db_select_id()))
+    print(asyncio.run(db_select()))
     # print(asyncio.run(db_check(5194830049, 'Ивано')))
+
+    # print(get_data('05', '01'))
