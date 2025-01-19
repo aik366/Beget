@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
@@ -27,6 +28,9 @@ async def main():
 if __name__ == '__main__':
     try:
         print('Бот запущен!!!')
+        logging.basicConfig(filename='DATA/logs.log', level=logging.INFO,
+                            format='%(levelname)s (%(asctime)s): %(message)s (line: %(lineno)d) [%(filename)s]',
+                            datefmt='%d.%m.%Y %H:%M:%S', filemode='w')
         asyncio.run(main())
     except KeyboardInterrupt:
         print('Бот выключен')

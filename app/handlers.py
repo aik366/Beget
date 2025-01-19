@@ -86,3 +86,10 @@ async def file_open(message: Message):
     with open("DATA/33.txt", "r") as file:
         f = file.read()
         await message.answer(f"{f}")
+
+
+@router.message(F.text == 'log')
+async def file_open(message: Message):
+    with open("DATA/logs.log", "r") as file:
+        f = file.read()
+        await message.answer(f"{f}")
