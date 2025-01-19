@@ -39,13 +39,13 @@ async def cmd_admin(message: Message, state: FSMContext):
 
 
 @router.message(F.text == '❌Отмена')
-async def add_user_data(message: Message, state: FSMContext):
+async def add_cencel(message: Message, state: FSMContext):
     await message.answer("Действие отменено")
     await state.clear()
 
 
 @router.message(F.text == '👁️Просмотр данных')
-async def add_user_data(message: Message, state: FSMContext):
+async def add_user_viev(message: Message, state: FSMContext):
     await message.answer(f"{await db.db_select()}")
     await state.clear()
 
@@ -57,7 +57,7 @@ async def add_user_data(message: Message, state: FSMContext):
 
 
 @router.message(Reg.add_user)
-async def add_user_data(message: Message, state: FSMContext):
+async def add_user_reg(message: Message, state: FSMContext):
     await state.update_data(add_user=message.text)
     data_state = await state.get_data()
     await db.add_db(data_state['add_user'])
@@ -66,13 +66,13 @@ async def add_user_data(message: Message, state: FSMContext):
 
 
 @router.message(F.text == '🗑️Удалить данные')
-async def add_user_data(message: Message, state: FSMContext):
+async def delete_user(message: Message, state: FSMContext):
     await state.set_state(Reg.del_user)
     await message.answer('Введите Ф.И.\nПример: Иванов Иван')
 
 
 @router.message(Reg.del_user)
-async def add_user_data(message: Message, state: FSMContext):
+async def delete_user_reg(message: Message, state: FSMContext):
     await state.update_data(del_user=message.text)
     data_state = await state.get_data()
     data_list = data_state['del_user'].split()
@@ -89,7 +89,7 @@ async def file_open(message: Message):
 
 
 @router.message(F.text == 'log')
-async def file_open(message: Message):
+async def file_open_logo(message: Message):
     with open("DATA/logs.log", "r") as file:
         f = file.read()
         await message.answer(f"{f}")
