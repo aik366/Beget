@@ -146,7 +146,8 @@ if __name__ == '__main__':
     # asyncio.run(add_column())
     # asyncio.run(add_db("Галстян Айк 22.04.1972"))
     # asyncio.run(db_update(428030603, 'Admin'))
-    # print(asyncio.run(db_select()))
+    # print(asyncio.run(delta_db('')))
+    print(asyncio.run(db_select()))
     # print(asyncio.run(db_check(5194830049, 'Ивано')))
 
     # print(asyncio.run(get_data('19', '01')))

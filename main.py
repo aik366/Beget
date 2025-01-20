@@ -17,7 +17,7 @@ async def main():
     dp: Dispatcher = Dispatcher()
 
     scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
-    scheduler.add_job(delta_db, trigger='cron', hour=00, minute=2, start_date=datetime.now(), args=(dp,))
+    scheduler.add_job(delta_db, trigger='cron', hour=3, minute=7, start_date=datetime.now(), args=(dp,))
     scheduler.add_job(open_birthday, trigger='cron', hour=12, minute=00, start_date=datetime.now(), kwargs={"bot": bot})
     scheduler.add_job(open_birthday_reminder, trigger='cron', hour=12, minute=00, start_date=datetime.now(),
                       kwargs={"bot": bot})
