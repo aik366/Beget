@@ -1,9 +1,10 @@
 from aiogram import F, Router, Bot
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, FSInputFile
 from aiogram.filters import CommandStart, Command
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 from config import MY_ID
+from random import randint
 
 import app.database as db
 import app.keyboards as kb
@@ -79,6 +80,12 @@ async def delete_user_reg(message: Message, state: FSMContext):
     await db.db_data_delete(data_list[0], data_list[1])
     await message.answer('Данные удалены')
     await state.clear()
+
+
+@router.message(F.text == '🎁Открытки')
+async def file_open_images(message: Message):
+    cat = FSInputFile(f'images/{randint(1, 20)}.jpg')
+    await message.answer_photo(cat)
 
 
 @router.message(F.text == '33')
