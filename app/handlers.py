@@ -91,5 +91,5 @@ async def file_open(message: Message):
 @router.message(F.text == 'log')
 async def file_open_logo(message: Message):
     with open("DATA/logs.log", "r") as file:
-        f = file.read()[3000:]
+        f = file.read()[-3000:]
         await message.answer(f"{f}")
