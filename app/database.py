@@ -51,11 +51,25 @@ async def add_db(user_text: str):
     split_data = user_split[2].replace(',', '.').split('.')
     data_get = await get_data(split_data[0], split_data[1])
     split_data = f"{split_data[0].zfill(2)}.{split_data[1].zfill(2)}.{split_data[2]}"
-    # split_data = date.fromisoformat(split_data)
     async with aiosqlite.connect('DATA/user.db') as db:
-        await db.execute("INSERT INTO users_data (user_surname, user_name, user_data, delta_time) VALUES (?, ?, ?, ?)",
-                         (user_split[0], user_split[1], split_data, data_get))
-        await db.commit()
+        cursor = await db.execute("SELECT * FROM users_data WHERE user_surname == ?  AND user_name == ?",
+                                  (user_split[0], user_split[1]))
+        data = await cursor.fetchone()
+        if not data:
+            async with aiosqlite.connect('DATA/user.db') as db:
+                await db.execute("INSERT INTO users_data (user_surname, user_name, user_data, delta_time) "
+                                 "VALUES (?, ?, ?, ?)",
+                                 (user_split[0].capitalize(), user_split[1].capitalize(), split_data, data_get))
+                await db.commit()
+
+
+async def db_check(txt: str):
+    txt = txt.split()
+    surname, name = txt[0].capitalize(), txt[1].capitalize()
+    async with aiosqlite.connect('DATA/user.db') as db:
+        cursor = await db.execute("SELECT * FROM users_data WHERE user_surname == ? AND user_name == ?",
+                                  (surname, name))
+        return await cursor.fetchone()
 
 
 async def db_update(us_id, us_surname):
@@ -78,14 +92,10 @@ async def delta_db(e):
 
 async def db_select():
     async with aiosqlite.connect('DATA/user.db') as db:
-        # cursor = await db.execute("SELECT * FROM users_data ORDER BY strftime('%m.%d', user_data) ASC")
         cursor = await db.execute("SELECT * FROM users_data ORDER BY delta_time ASC")
         users = await cursor.fetchall()
         data_txt = ""
         for el in users:
-            # tmp = str(el[3]).split('.')
-            # # data_get = await get_data(tmp[2], tmp[1])
-            # tmp = f"{tmp[2]}.{tmp[1]}.{tmp[0]}"
             data_txt += f"{el[1]} {el[2]} {el[3]} ({el[4]})\n"
         return data_txt
 
@@ -127,7 +137,6 @@ async def birthday_reminder():
 
 async def birthday():
     async with aiosqlite.connect('DATA/user.db') as db:
-        # cursor = await db.execute("SELECT * FROM users_data WHERE strftime('%d-%m', user_data) = ?", (f'{data}',))
         cursor = await db.execute("SELECT * FROM users_data WHERE delta_time = ?", (0,))
         users = await cursor.fetchall()
         if users:

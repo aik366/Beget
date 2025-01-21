@@ -1,6 +1,6 @@
 from aiogram import F, Router, Bot
 from aiogram.types import Message, CallbackQuery, FSInputFile
-from aiogram.filters import CommandStart, Command
+from aiogram.filters import CommandStart, Command, Filter
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 from config import MY_ID
@@ -15,6 +15,17 @@ router = Router()
 class Reg(StatesGroup):
     add_user = State()
     del_user = State()
+
+
+class MyFilter(Filter):
+    def __init__(self, my_text: str) -> None:
+        self.my_text = my_text
+
+    async def __call__(self, message: Message) -> bool:
+        s = message.text.replace(",", ".").split()
+        if len(s) == 3 and s[0].isalpha() and s[1].isalpha() and s[2].count('.') == 2:
+            return True
+        return False
 
 
 @router.message(CommandStart())
@@ -64,12 +75,15 @@ async def add_user_data(message: Message, state: FSMContext):
     await message.answer('Введите Ф.И. и дату рождения\nПример: 👇\nИванов Иван 30.01.2000')
 
 
-@router.message(Reg.add_user)
+@router.message(Reg.add_user, MyFilter(F.text))
 async def add_user_reg(message: Message, state: FSMContext):
     await state.update_data(add_user=message.text)
     data_state = await state.get_data()
-    await db.add_db(data_state['add_user'])
-    await message.answer('Данные добавлены')
+    if not await db.db_check(data_state['add_user']):
+        await db.add_db(data_state['add_user'])
+        await message.answer('Данные добавлены')
+    else:
+        await message.answer('Такой запись уже есть')
     await state.clear()
 
 
@@ -101,3 +115,8 @@ async def file_open_logo(message: Message):
     with open("DATA/logs.log", "r") as file:
         f = file.read()[-3000:]
         await message.answer(f"{f}")
+
+
+@router.message()
+async def echo(message: Message):
+    await message.reply('ошибка!')
