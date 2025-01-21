@@ -6,9 +6,10 @@ add_user_data = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🆕Доба
                                               KeyboardButton(text='❌Отмена'), ],], resize_keyboard=True)
 
 
-admin = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Данные по ID'),
+admin = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🗑️Удалить ID'),
                                        KeyboardButton(text='🗑️Удалить данные'), ],
-                                      [KeyboardButton(text='❌Отмена')], ], resize_keyboard=True)
+                                      [KeyboardButton(text='Данные по ID'),
+                                       KeyboardButton(text='❌Отмена')], ], resize_keyboard=True)
 
 
 # catalog = InlineKeyboardMarkup(inline_keyboard=[

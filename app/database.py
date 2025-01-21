@@ -133,6 +133,12 @@ async def db_data_delete(surname, name):
         await db.commit()
 
 
+async def db_delete_id(user_id):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        await db.execute("DELETE FROM users WHERE user_id = ?", (user_id,))
+        await db.commit()
+
+
 async def birthday_reminder():
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute("SELECT * FROM users_data WHERE delta_time = ?", (3,))
