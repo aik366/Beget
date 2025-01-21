@@ -28,7 +28,6 @@ async def delete_id(message: Message, state: FSMContext):
 async def delete_id_reg(message: Message, state: FSMContext):
     await state.update_data(del_id=message.text)
     data_state = await state.get_data()
-    print(data_state['del_id'])
     await db.db_delete_id(data_state['del_id'])
     await message.answer('Данные по ID удалены')
     await state.clear()
