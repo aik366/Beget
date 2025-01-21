@@ -51,6 +51,13 @@ async def add_user_viev(message: Message, state: FSMContext):
     await state.clear()
 
 
+@router.message(F.text == '🎁Открытки')
+async def file_open_images(message: Message, state: FSMContext):
+    cat = FSInputFile(f'images/{randint(1, 20)}.jpg')
+    await message.answer_photo(cat)
+    await state.clear()
+
+
 @router.message(F.text == '🆕Добавить данные')
 async def add_user_data(message: Message, state: FSMContext):
     await state.set_state(Reg.add_user)
@@ -80,12 +87,6 @@ async def delete_user_reg(message: Message, state: FSMContext):
     await db.db_data_delete(data_list[0], data_list[1])
     await message.answer('Данные удалены')
     await state.clear()
-
-
-@router.message(F.text == '🎁Открытки')
-async def file_open_images(message: Message):
-    cat = FSInputFile(f'images/{randint(1, 20)}.jpg')
-    await message.answer_photo(cat)
 
 
 @router.message(F.text == '33')
