@@ -5,6 +5,7 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 from config import MY_ID
 from random import randint
+from datetime import datetime
 
 import app.database as db
 import app.keyboards as kb
@@ -23,7 +24,12 @@ class MyFilter(Filter):
 
     async def __call__(self, message: Message) -> bool:
         s = message.text.replace(",", ".").split()
-        if len(s) == 3 and s[0].isalpha() and s[1].isalpha() and s[2].count('.') == 2:
+        s2 = s[2].split(".")
+        d_day = s2[0].isdigit() and 1 <= int(s2[0]) <= 31
+        d_month = s2[0].isdigit() and 1 <= int(s2[0]) <= 12
+        d_year = s2[0].isdigit() and 1900 <= int(s2[0]) <= datetime.now().year
+        all_dmy = any([d_day, d_month, d_year])
+        if len(s) == 3 and s[0].isalpha() and s[1].isalpha() and s[2].count('.') == 2 and all_dmy:
             return True
         return False
 
@@ -72,7 +78,7 @@ async def file_open_images(message: Message, state: FSMContext):
 @router.message(F.text == '🆕Добавить данные')
 async def add_user_data(message: Message, state: FSMContext):
     await state.set_state(Reg.add_user)
-    await message.answer('Введите Ф.И. и дату рождения\nПример: 👇\nИванов Иван 30.01.2000')
+    await message.answer('Введите Ф.И. и дату рождения\nФормате: дд.мм.гггг\nПример: 👇\nИванов Иван 30.01.2000')
 
 
 @router.message(Reg.add_user, MyFilter(F.text))
