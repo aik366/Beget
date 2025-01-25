@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 from config import MY_ID
 from random import randint
 from datetime import datetime
+import os
 
 import app.database as db
 import app.keyboards as kb
@@ -70,7 +71,7 @@ async def add_user_viev(message: Message, state: FSMContext):
 
 @router.message(F.text == '🎁Открытки')
 async def file_open_images(message: Message, state: FSMContext):
-    cat = FSInputFile(f'images/{randint(1, 20)}.jpg')
+    cat = FSInputFile(f'images/{randint(1, len(os.listdir("images")))}.jpg')
     await message.answer_photo(cat)
     await state.clear()
 
@@ -121,6 +122,14 @@ async def file_open_logo(message: Message):
     with open("DATA/logs.log", "r") as file:
         f = file.read()[-3000:]
         await message.answer(f"{f}")
+
+
+@router.message(F.photo)
+async def cmd_admin_photo(message: Message, bot: Bot):
+    if message.from_user.id == MY_ID:
+        file_name = f"images/{len(os.listdir('images'))+1}.jpg"
+        await bot.download(message.photo[-1], destination=file_name)
+        await message.answer('Фото сохранено')
 
 
 @router.message()
