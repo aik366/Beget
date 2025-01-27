@@ -69,6 +69,20 @@ async def add_user_viev(message: Message, state: FSMContext):
     await state.clear()
 
 
+@router.message(F.text == '✨Пожелания')
+async def open_wishes(message: Message):
+    with open(f"files/wishes.txt", "r", encoding="utf-8") as f:
+        wishes_txt = choice(f.read().split('\n'))
+        await message.answer(f"{wishes_txt}")
+
+
+@router.message(F.text == '🥂Тост')
+async def open_toasts(message: Message):
+    with open(f"files/toasts.txt", "r", encoding="utf-8") as f:
+        toasts_txt = choice(f.read().split('\n'))
+        await message.answer(f"{toasts_txt}")
+
+
 @router.message(F.text == '🎁Открытки')
 async def file_open_images(message: Message, state: FSMContext):
     img = FSInputFile(f'images/{choice(os.listdir("images"))}')
@@ -127,7 +141,7 @@ async def file_open_logo(message: Message):
 @router.message(F.photo, F.from_user.id == MY_ID)
 async def cmd_admin_photo(message: Message, bot: Bot):
     try:
-        file_name = f"images/{len(os.listdir('images'))+1}.jpg"
+        file_name = f"images/{len(os.listdir('images')) + 1}.jpg"
         await bot.download(message.photo[-1], destination=file_name)
         await message.answer('Фото сохранено')
     except Exception as e:

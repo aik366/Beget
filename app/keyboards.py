@@ -2,8 +2,10 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMa
 
 add_user_data = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🆕Добавить данные'),
                                                KeyboardButton(text='👁️Просмотр данных'), ],
+                                              [KeyboardButton(text='✨Пожелания'),
+                                              KeyboardButton(text='🥂Тост'), ],
                                               [KeyboardButton(text='🎁Открытки'),
-                                              KeyboardButton(text='❌Отмена'), ],], resize_keyboard=True)
+                                               KeyboardButton(text='❌Отмена'), ],], resize_keyboard=True)
 
 
 admin = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🗑️Удалить ID'),
