@@ -138,16 +138,3 @@ async def file_open_logo(message: Message):
         await message.answer(f"{f}")
 
 
-@router.message(F.photo, F.from_user.id == MY_ID)
-async def cmd_admin_photo(message: Message, bot: Bot):
-    try:
-        file_name = f"images/{len(os.listdir('images')) + 1}.jpg"
-        await bot.download(message.photo[-1], destination=file_name)
-        await message.answer('Фото сохранено')
-    except Exception as e:
-        await message.answer(f"❌ Ошибка: {str(e)}")
-
-
-@router.message()
-async def echo(message: Message):
-    await message.reply('ошибка!')

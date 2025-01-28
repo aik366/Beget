@@ -23,7 +23,7 @@ async def main():
                       kwargs={"bot": bot})
     scheduler.start()
 
-    dp.include_routers(router_admin, router)
+    dp.include_routers(router, router_admin)
     await dp.start_polling(bot)
 
 

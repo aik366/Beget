@@ -121,10 +121,7 @@ async def db_select_users():
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute("SELECT * FROM users")
         users = await cursor.fetchall()
-        data_txt = ""
-        for el in users:
-            data_txt += f"{el[1]} {el[2]} {el[3]}\n"
-        return data_txt
+        return [(el[1], el[2], el[3]) for el in users]
 
 
 async def db_data_delete(surname, name):
