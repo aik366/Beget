@@ -13,8 +13,40 @@ router_admin = Router()
 class Reg(StatesGroup):
     del_id = State()
     text_1 = State()
-    text_2 = State()
-    text_img = State()
+
+
+class PhotoForm(StatesGroup):
+    waiting_for_photo = State()  # Шаг 1: Ожидание фото
+    waiting_for_caption = State()  # Шаг 2: Ожидание подписи
+
+
+# Старт процесса
+@router_admin.message(F.text == "Картинка", F.from_user.id == MY_ID)
+async def start_photo_upload(message: Message, state: FSMContext):
+    await message.answer("📷 Отправьте фото, к которому нужно добавить подпись")
+    await state.set_state(PhotoForm.waiting_for_photo)
+
+
+# Обработка фото
+@router_admin.message(PhotoForm.waiting_for_photo, F.photo)
+async def process_photo(message: Message, state: FSMContext):
+    # Сохраняем фото
+    photo = message.photo[-1]
+    await state.update_data(photo_id=photo.file_id)
+    # Переходим к ожиданию подписи
+    await state.set_state(PhotoForm.waiting_for_caption)
+    await message.answer("✅ Фото принято! Теперь введите подпись к фото")
+
+
+# Обработка подписи
+@router_admin.message(PhotoForm.waiting_for_caption, F.text)
+async def process_caption(message: Message, state: FSMContext, bot: Bot):
+    await state.update_data(caption=message.text)
+    full_data = await state.get_data()
+    for tg_id, name, data in await db.db_select_users():
+        await bot.send_photo(int(tg_id), full_data['photo_id'],
+                             caption=f"Привет {name}!\n{full_data['caption']}\nАдминистрация!!!")
+    await state.clear()
 
 
 @router_admin.message(F.text == "Объявление")
@@ -32,36 +64,11 @@ async def reg_admin_text_1(message: Message, bot: Bot, state: FSMContext):
     await state.clear()
 
 
-@router_admin.message(F.text == "Картинка")
-async def cmd_admin_img(message: Message, state: FSMContext):
-    await state.set_state(Reg.text_2)
-    await message.answer("Пишите объявление")
-
-
-txt = ''
-
-
-@router_admin.message(Reg.text_2)
-async def reg_admin_text_2(message: Message, state: FSMContext):
-    global txt
-    txt = message.text
-
-    await message.answer("Прикрепите картинку")
-    await state.clear()
-
-
 @router_admin.message(F.photo, F.from_user.id == MY_ID)
 async def cmd_admin_photo(message: Message, bot: Bot):
-    global txt
-    if txt:
-        for tg_id, name, data in await db.db_select_users():
-            await bot.send_photo(int(tg_id), message.photo[-1].file_id,
-                                 caption=f"Привет {name}!\n{txt}\nАдминистрация!!!")
-        txt = ''
-    else:
-        file_name = f"images/{len(os.listdir('images')) + 1}.jpg"
-        await bot.download(message.photo[-1], destination=file_name)
-        await message.answer('Фото сохранено')
+    file_name = f"images/{len(os.listdir('images')) + 1}.jpg"
+    await bot.download(message.photo[-1], destination=file_name)
+    await message.answer('Фото сохранено')
 
 
 @router_admin.message(F.text == 'Данные по ID')
