@@ -93,7 +93,9 @@ async def file_open_images(message: Message, state: FSMContext):
 @router.message(F.text == '🆕Добавить данные')
 async def add_user_data(message: Message, state: FSMContext):
     await state.set_state(Reg.add_user)
-    await message.answer('Введите Ф.И. и дату рождения\nФормате: дд.мм.гггг\nПример: 👇\nИванов Иван 30.01.2000')
+    await message.answer('Введите Ф.И. и дату рождения\nФормате: дд.мм.гггг\nПример: 👇')
+    img = FSInputFile(f'DATA/add_img.jpg')
+    await message.answer_photo(img)
 
 
 @router.message(Reg.add_user, MyFilter(F.text))
