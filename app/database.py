@@ -28,6 +28,17 @@ async def calculate_age(born):
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 
+async def get_age_suffix(age: int) -> str:
+    if 11 <= age % 100 <= 14:
+        return "лет"
+    last_digit = age % 10
+    if last_digit == 1:
+        return "год"
+    if 2 <= last_digit <= 4:
+        return "года"
+    return "лет"
+
+
 async def create_table():
     async with aiosqlite.connect('../DATA/user.db') as db:
         await db.execute(
@@ -106,7 +117,7 @@ async def db_select():
         users = await cursor.fetchall()
         data_txt = ""
         for el in users:
-            data_txt += f"{el[1]} {el[2]} {el[3]} ({el[5]}) ({el[4]})\n"
+            data_txt += f"{el[1]} {el[2]}  - {el[5]} {await get_age_suffix(el[5])}, до ДР: {el[4]} дней\n"
         return data_txt
 
 
