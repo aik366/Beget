@@ -19,6 +19,16 @@ class Reg(StatesGroup):
     del_user = State()
 
 
+class Form(StatesGroup):
+    first_name = State()
+    last_name = State()
+    birthday = State()
+
+
+def validate_name(name):
+    return len(name) >= 2 and name.isalpha()
+
+
 class MyFilter(Filter):
     def __init__(self, my_text: str) -> None:
         self.my_text = my_text
@@ -91,22 +101,48 @@ async def file_open_images(message: Message, state: FSMContext):
 
 
 @router.message(F.text == '🆕Добавить данные')
-async def add_user_data(message: Message, state: FSMContext):
-    await state.set_state(Reg.add_user)
-    await message.answer('Введите Ф.И. и дату рождения\nФормате: дд.мм.гггг\nПример: 👇')
-    img = FSInputFile(f'DATA/add_img.jpg')
-    await message.answer_photo(img)
+async def add_data(message: Message, state: FSMContext):
+    await state.set_state(Form.first_name)
+    await message.answer("Введите имя (только буквы):")
 
 
-@router.message(Reg.add_user, MyFilter(F.text))
+@router.message(Form.first_name)
+async def process_first_name(message: Message, state: FSMContext):
+    if not validate_name(message.text):
+        return await message.answer("Неверное имя! Используйте только буквы (мин. 2 символа).",
+                                    reply_markup=kb.add_user_data)
+
+    await state.update_data(first_name=message.text.title())
+    await state.set_state(Form.last_name)
+    await message.answer("Введите фамилию (только буквы):", reply_markup=kb.add_user_data)
+
+
+@router.message(Form.last_name)
+async def process_last_name(message: Message, state: FSMContext):
+    if not validate_name(message.text):
+        return await message.answer("Неверная фамилия! Используйте только буквы (мин. 2 символа).",
+                                    reply_markup=kb.add_user_data)
+
+    await state.update_data(last_name=message.text.title())
+    await state.set_state(Form.birthday)
+    await message.answer("Введите дату рождения (ДД.ММ.ГГГГ):", reply_markup=kb.add_user_data)
+
+
+@router.message(Form.birthday)
 async def add_user_reg(message: Message, state: FSMContext):
-    await state.update_data(add_user=message.text)
+    try:
+        datetime.strptime(message.text.replace(",", "."), "%d.%m.%Y").date()
+    except ValueError:
+        return await message.answer("Неверный формат даты! Используйте ДД.ММ.ГГГГ", reply_markup=kb.add_user_data)
+
+    await state.update_data(birthday=message.text)
     data_state = await state.get_data()
-    if not await db.db_check(data_state['add_user']):
-        await db.add_db(data_state['add_user'])
-        await message.answer('Данные добавлены')
+    data = f"{data_state['last_name']} {data_state['first_name']} {data_state['birthday']}"
+    if not await db.db_check(data):
+        await db.add_db(data)
+        await message.answer('Данные добавлены', reply_markup=kb.add_user_data)
     else:
-        await message.answer('Такой запись уже есть')
+        await message.answer('Такой запись уже есть', reply_markup=kb.add_user_data)
     await state.clear()
 
 
@@ -138,5 +174,3 @@ async def file_open_logo(message: Message):
     with open("DATA/logs.log", "r") as file:
         f = file.read()[-3000:]
         await message.answer(f"{f}")
-
-

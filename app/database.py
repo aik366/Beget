@@ -117,7 +117,7 @@ async def db_select():
         users = await cursor.fetchall()
         data_txt = ""
         for el in users:
-            data_txt += f"{el[1]} {el[2]}  - {el[5]} {await get_age_suffix(el[5])}, до ДР: {el[4]} дней\n"
+            data_txt += f"{el[1]} {el[2]} - {el[5]} {await get_age_suffix(el[5])}, до ДР: {el[4]} дней\n"
         return data_txt
 
 
