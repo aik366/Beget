@@ -13,11 +13,28 @@ router_admin = Router()
 class Reg(StatesGroup):
     del_id = State()
     text_1 = State()
+    del_user = State()
 
 
 class PhotoForm(StatesGroup):
     waiting_for_photo = State()  # Шаг 1: Ожидание фото
     waiting_for_caption = State()  # Шаг 2: Ожидание подписи
+
+
+@router_admin.message(F.text == 'Удалить данные')
+async def delete_user(message: Message, state: FSMContext):
+    await state.set_state(Reg.del_user)
+    await message.answer('Введите Ф.И.\nПример: Иванов Иван')
+
+
+@router_admin.message(Reg.del_user)
+async def delete_user_reg(message: Message, state: FSMContext):
+    await state.update_data(del_user=message.text)
+    data_state = await state.get_data()
+    data_list = data_state['del_user'].split()
+    await db.admin_delete(data_list[0], data_list[1])
+    await message.answer('Данные удалены')
+    await state.clear()
 
 
 # Старт процесса

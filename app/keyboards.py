@@ -3,24 +3,23 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMa
 add_user_data = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🆕Добавить данные'),
                                                KeyboardButton(text='👁️Просмотр данных'), ],
                                               [KeyboardButton(text='✨Пожелания'),
-                                              KeyboardButton(text='🥂Тост'), ],
+                                               KeyboardButton(text='🥂Тост'), ],
                                               [KeyboardButton(text='🎁Открытки'),
-                                               KeyboardButton(text='❌Отмена'), ],], resize_keyboard=True)
-
+                                               KeyboardButton(text='❌Отмена'), ],
+                                              [KeyboardButton(text='🗑️Удалить данные'),
+                                               KeyboardButton(text='✏️Редактировать')]], resize_keyboard=True)
 
 admin = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🗑️Удалить по ID'),
-                                       KeyboardButton(text='🗑️Удалить данные'), ],
+                                       KeyboardButton(text='Удалить данные'), ],
                                       [KeyboardButton(text='Данные по ID'),
                                        KeyboardButton(text='❌Отмена')],
                                       [KeyboardButton(text='Объявление'),
                                        KeyboardButton(text='Картинка')]], resize_keyboard=True)
 
-
-# catalog = InlineKeyboardMarkup(inline_keyboard=[
-#     [InlineKeyboardButton(text='Футболки', callback_data='t-shirt')],
-#     [InlineKeyboardButton(text='Кроссовки', callback_data='sneakers')],
-#     [InlineKeyboardButton(text='Кепки', callback_data='cap')]])
-
+edit = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Фамилия', callback_data='surname'),
+     InlineKeyboardButton(text='Имя', callback_data='name'),
+     InlineKeyboardButton(text='Дата', callback_data='date')], ], resize_keyboard=True)
 
 # get_number = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Отправить номер',
 #                                                            request_contact=True)]],

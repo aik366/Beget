@@ -43,10 +43,8 @@ async def create_table():
     async with aiosqlite.connect('../DATA/user.db') as db:
         await db.execute(
             "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            "user_id BIGINT, user_name TEXT, data_time TEXT)")
-        await db.execute(
-            "CREATE TABLE IF NOT EXISTS users_data (id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            "user_surname TEXT, user_name TEXT, user_data TEXT, delta_time INTEGER, age INTEGER)")
+            "tg_id BIGINT, full_name TEXT, surname TEXT, name TEXT, number INTEGER, data TEXT, "
+            "delta_time INTEGER, age INTEGER, id_data TEXT)")
 
 
 async def add_column():
@@ -54,119 +52,163 @@ async def add_column():
         await db.execute("ALTER TABLE users_data ADD age INTEGER")
 
 
-async def start_db(us_id, us_name, us_time=my_time):
+async def start_db(tg_id, full_name, number=0, id_data=my_time):
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users WHERE user_id == ?", (us_id,))
+        cursor = await db.execute("SELECT * FROM users WHERE tg_id == ?", (tg_id,))
         data = await cursor.fetchone()
         if not data:
-            await db.execute("INSERT INTO users (user_id, user_name, data_time) VALUES (?, ?, ?)",
-                             (us_id, us_name, us_time))
+            await db.execute("INSERT INTO users (tg_id, full_name, number, id_data) VALUES (?, ?, ?, ?)",
+                             (tg_id, full_name, number, id_data))
             await db.commit()
 
 
-async def add_db(user_text: str):
-    user_split = user_text.replace(',', '.').split()
-    split_data = user_split[2].split('.')
+async def add_db(tg_id, surname, name, data):
+    split_data = data.split('.')
     data_get = await get_data(split_data[0], split_data[1])
-    data_age = await calculate_age(user_split[2])
-    split_data = f"{split_data[0].zfill(2)}.{split_data[1].zfill(2)}.{split_data[2]}"
+    data_age = await calculate_age(data)
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users_data WHERE user_surname == ?  AND user_name == ?",
-                                  (user_split[0], user_split[1]))
-        data = await cursor.fetchone()
-        if not data:
-            async with aiosqlite.connect('DATA/user.db') as db:
-                await db.execute("INSERT INTO users_data (user_surname, user_name, user_data, delta_time, age) "
-                                 "VALUES (?, ?, ?, ?, ?)",
-                                 (user_split[0].capitalize(), user_split[1].capitalize(), split_data, data_get,
-                                  data_age))
-                await db.commit()
+        await db.execute("INSERT INTO users (tg_id, surname, name, number, data, delta_time, age, id_data) "
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                         (tg_id, surname.capitalize(), name.capitalize(), 1, data, data_get, data_age, my_time))
+        await db.commit()
 
 
-async def db_check(txt: str):
-    txt = txt.split()
-    surname, name = txt[0].capitalize(), txt[1].capitalize()
+async def db_check(surname, name):
+    surname, name = surname.capitalize(), name.capitalize()
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users_data WHERE user_surname == ? AND user_name == ?",
+        cursor = await db.execute("SELECT * FROM users WHERE surname == ? AND name == ?",
                                   (surname, name))
         return await cursor.fetchone()
 
 
-async def db_update(us_id, us_surname):
+async def update_surname(new_surname, surname, name):
     async with aiosqlite.connect('DATA/user.db') as db:
-        await db.execute("UPDATE users SET user_surname = ? WHERE user_id = ?", (us_surname, us_id))
+        await db.execute("UPDATE users SET surname = ? WHERE surname = ? AND name = ?", (new_surname, surname, name))
         await db.commit()
+
+
+async def update_name(new_name, surname, name):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        await db.execute("UPDATE users SET name = ? WHERE surname = ? AND name = ?", (new_name, surname, name))
+        await db.commit()
+
+
+async def update_data(new_data, surname, name):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        await db.execute("UPDATE users SET data = ? WHERE surname = ? AND name = ?", (new_data, surname, name))
+        await db.commit()
+        await delta_db(db)
 
 
 async def delta_db(e):
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users_data")
+        cursor = await db.execute("SELECT * FROM users WHERE number != 0")
         users = await cursor.fetchall()
         for el in users:
-            tmp = str(el[3]).split('.')
+            tmp = str(el[6]).split('.')
             data_get = await get_data(tmp[0], tmp[1])
-            data_age = await calculate_age(el[3])
-            await db.execute("UPDATE users_data SET delta_time = ?, age = ? WHERE user_surname = ? AND user_name = ?",
-                             (data_get, data_age, el[1], el[2]))
+            data_age = await calculate_age(el[6])
+            await db.execute("UPDATE users SET delta_time = ?, age = ? WHERE surname = ? AND name = ?",
+                             (data_get, data_age, el[3], el[4]))
         await db.commit()
 
 
 async def db_select():
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users_data ORDER BY delta_time ASC")
+        cursor = await db.execute(
+            "SELECT surname, name, delta_time, age FROM users WHERE number != 0 ORDER BY delta_time ASC")
         users = await cursor.fetchall()
         data_txt = ""
         for el in users:
-            data_txt += f"{el[1]} {el[2]} - {el[5]} {await get_age_suffix(el[5])}, до ДР: {el[4]} дней\n"
+            data_txt += f"{el[0]} {el[1]} - {el[3]} {await get_age_suffix(el[3])}, до ДР: {el[2]} дней\n"
         return data_txt
 
 
 async def db_select_id():
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT user_id FROM users")
+        cursor = await db.execute("SELECT tg_id FROM users")
         users = await cursor.fetchall()
-        return [el[0] for el in users]
+        return set(el[0] for el in users)
 
 
 async def db_select_users():
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users")
+        cursor = await db.execute("SELECT tg_id, full_name, id_data FROM users WHERE number == 0")
         users = await cursor.fetchall()
-        return [(el[1], el[2], el[3]) for el in users]
+        return users
 
 
-async def db_data_delete(surname, name):
+async def delete_select(tg_id):
     async with aiosqlite.connect('DATA/user.db') as db:
-        await db.execute("DELETE FROM users_data WHERE user_surname = ? AND user_name = ?", (surname, name))
+        cursor = await db.execute(
+            "SELECT surname, name, data FROM users WHERE tg_id == ? AND number != 0 ORDER BY delta_time ASC",
+            (tg_id,))
+        users = await cursor.fetchall()
+        data_txt = ""
+        for num, el in enumerate(users, 1):
+            data_txt += f"{num} - {el[0]} {el[1]} {el[2]}\n"
+        return data_txt
+
+
+async def delete_to_number(tg_id, number):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        cursor = await db.execute(
+            "SELECT surname, name FROM users WHERE tg_id == ? AND number != 0 ORDER BY delta_time ASC",
+            (tg_id,))
+        users = await cursor.fetchall()
+        data_dict = {}
+        for num, el in enumerate(users, 1):
+            data_dict[num] = [el[0], el[1]]
+        surname, name = data_dict[number]
+        async with aiosqlite.connect('DATA/user.db') as db:
+            await db.execute("DELETE FROM users WHERE surname = ? AND name = ?", (surname, name))
+            await db.commit()
+
+
+async def edit_to_number(tg_id, number):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        cursor = await db.execute(
+            "SELECT surname, name, data FROM users WHERE tg_id == ? AND number != 0 ORDER BY delta_time ASC",
+            (tg_id,))
+        users = await cursor.fetchall()
+        data_dict = {}
+        for num, el in enumerate(users, 1):
+            data_dict[num] = [el[0], el[1], el[2]]
+        return data_dict[number]
+
+
+async def admin_delete(surname, name):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        await db.execute("DELETE FROM users WHERE surname = ? AND name = ?", (surname, name))
         await db.commit()
 
 
-async def db_delete_id(user_id):
+async def db_delete_id(tg_id):
     async with aiosqlite.connect('DATA/user.db') as db:
-        await db.execute("DELETE FROM users WHERE user_id = ?", (user_id,))
+        await db.execute("DELETE FROM users WHERE tg_id = ?", (tg_id,))
         await db.commit()
 
 
 async def birthday_reminder():
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users_data WHERE delta_time = ?", (3,))
+        cursor = await db.execute("SELECT surname, name FROM users WHERE delta_time = ?", (3,))
         users = await cursor.fetchall()
         if users:
             data_txt = "Через 3 дня у\n"
             for el in users:
-                data_txt += f"{el[1]} {el[2]}\nдень рождения!!!\nне забудьте поздравить!\n"
+                data_txt += f"{el[0]} {el[1]}\nдень рождения!!!\nне забудьте поздравить!\n"
             return data_txt
         return "none"
 
 
 async def birthday():
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users_data WHERE delta_time = ?", (0,))
+        cursor = await db.execute("SELECT surname, name FROM users WHERE delta_time = ?", (0,))
         users = await cursor.fetchall()
         if users:
             data_txt = "Сегодня у\n"
             for el in users:
-                data_txt += f"{el[1]} {el[2]}\nдень рождения!!!\nне забудьте поздравить!\n"
+                data_txt += f"{el[0]} {el[1]}\nдень рождения!!!\nне забудьте поздравить!\n"
             return data_txt
         return "none"
 
@@ -178,9 +220,9 @@ if __name__ == '__main__':
     # print(asyncio.run(delta_db()))
     # asyncio.run(add_column())
     # asyncio.run(add_db("Галстян Айк 22.04.1972"))
-    # asyncio.run(db_update(428030603, 'Admin'))
+    # asyncio.run(update_surname("Галстян", "Погосян", "Айк"))
     # asyncio.run(delta_db(''))
-    # print(asyncio.run(db_select()))
-    # print(asyncio.run(db_check(5194830049, 'Ивано')))
+    # print(asyncio.run(db_select_users()))
+    # print(asyncio.run(start_db(1338196844, 'LA')))
     # print(asyncio.run(get_data('19', '01')))
     # print(calculate_age('22.04.1972'))

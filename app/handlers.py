@@ -14,35 +14,25 @@ import app.keyboards as kb
 router = Router()
 
 
-class Reg(StatesGroup):
-    add_user = State()
-    del_user = State()
-
-
 class Form(StatesGroup):
     first_name = State()
     last_name = State()
     birthday = State()
+    del_user = State()
+    del_number = State()
+    del_len_list = State()
+    edit_number = State()
+    edit_len_list = State()
+    edit_surname = State()
+    edit_name = State()
+    edit_data = State()
+    surname_edit = State()
+    name_edit = State()
+    data_edit = State()
 
 
 def validate_name(name):
     return len(name) >= 2 and name.isalpha()
-
-
-class MyFilter(Filter):
-    def __init__(self, my_text: str) -> None:
-        self.my_text = my_text
-
-    async def __call__(self, message: Message) -> bool:
-        s = message.text.replace(",", ".").split()
-        s2 = s[2].split(".")
-        d_day = s2[0].isdigit() and 1 <= int(s2[0]) <= 31
-        d_month = s2[0].isdigit() and 1 <= int(s2[0]) <= 12
-        d_year = s2[0].isdigit() and 1900 <= int(s2[0]) <= datetime.now().year
-        all_dmy = any([d_day, d_month, d_year])
-        if len(s) == 3 and s[0].isalpha() and s[1].isalpha() and s[2].count('.') == 2 and all_dmy:
-            return True
-        return False
 
 
 @router.message(CommandStart())
@@ -137,9 +127,8 @@ async def add_user_reg(message: Message, state: FSMContext):
 
     await state.update_data(birthday=message.text)
     data_state = await state.get_data()
-    data = f"{data_state['last_name']} {data_state['first_name']} {data_state['birthday']}"
-    if not await db.db_check(data):
-        await db.add_db(data)
+    if not await db.db_check(data_state['last_name'], data_state['first_name']):
+        await db.add_db(message.from_user.id, data_state['last_name'], data_state['first_name'], data_state['birthday'])
         await message.answer('Данные добавлены', reply_markup=kb.add_user_data)
     else:
         await message.answer('Такой запись уже есть', reply_markup=kb.add_user_data)
@@ -148,17 +137,104 @@ async def add_user_reg(message: Message, state: FSMContext):
 
 @router.message(F.text == '🗑️Удалить данные')
 async def delete_user(message: Message, state: FSMContext):
-    await state.set_state(Reg.del_user)
-    await message.answer('Введите Ф.И.\nПример: Иванов Иван')
+    await state.set_state(Form.del_number)
+    list_id = await db.delete_select(message.from_user.id)
+    await state.update_data(del_len_list=len(list_id.split('\n')) - 1)
+    if list_id:
+        await message.answer(f"{list_id}\nВведите порядковый номер\nДля удаления данных")
+    else:
+        await message.answer('У вас нет данных для удаления', reply_markup=kb.add_user_data)
+        await state.clear()
 
 
-@router.message(Reg.del_user)
+@router.message(Form.del_number)
 async def delete_user_reg(message: Message, state: FSMContext):
-    await state.update_data(del_user=message.text)
+    await state.update_data(del_number=message.text)
     data_state = await state.get_data()
-    data_list = data_state['del_user'].split()
-    await db.db_data_delete(data_list[0], data_list[1])
-    await message.answer('Данные удалены')
+    if not message.text.isdigit() or int(message.text) > data_state['del_len_list'] or int(message.text) < 1:
+        return await message.answer("Вы ввели неверное число\nПопробуйте ещё раз", reply_markup=kb.add_user_data)
+    data_state = await state.get_data()
+    await db.delete_to_number(message.from_user.id, int(data_state['del_number']))
+    await message.answer('Данные удалены', reply_markup=kb.add_user_data)
+    await state.clear()
+
+
+@router.message(F.text == '✏️Редактировать')
+async def delete_user(message: Message, state: FSMContext):
+    await state.set_state(Form.edit_number)
+    list_id = await db.delete_select(message.from_user.id)
+    await state.update_data(edit_len_list=len(list_id.split('\n')) - 1)
+    if list_id:
+        await message.answer(f"{list_id}\nВведите порядковый номер\nДля редактирования данных")
+    else:
+        await message.answer('У вас нет данных для редактирования', reply_markup=kb.add_user_data)
+        await state.clear()
+
+
+@router.message(Form.edit_number)
+async def delete_user_reg(message: Message, state: FSMContext):
+    await state.update_data(edit_number=message.text)
+    data_state = await state.get_data()
+    if not message.text.isdigit() or int(message.text) > data_state['edit_len_list'] or int(message.text) < 1:
+        return await message.answer("Вы ввели неверное число\nПопробуйте ещё раз", reply_markup=kb.add_user_data)
+    data_state = await state.get_data()
+    surname, name, data = await db.edit_to_number(message.from_user.id, int(data_state['edit_number']))
+    await state.update_data(edit_surname=surname, edit_name=name, edit_data=data)
+    await message.answer(f'{surname} {name} {data}', reply_markup=kb.edit)
+
+
+@router.callback_query(F.data == 'surname')
+async def edit_user(call: CallbackQuery, state: FSMContext):
+    await state.set_state(Form.surname_edit)
+    await call.message.answer("Введите новую фамилию (только буквы):")
+
+
+@router.message(Form.surname_edit)
+async def edit_user_reg(message: Message, state: FSMContext):
+    if not validate_name(message.text):
+        return await message.answer("Неверная фамилия! Используйте только буквы (мин. 2 символа).",
+                                    reply_markup=kb.add_user_data)
+    await state.update_data(surname_edit=message.text.capitalize())
+    data_state = await state.get_data()
+    await db.update_surname(data_state['surname_edit'], data_state['edit_surname'], data_state['edit_name'])
+    await message.answer('Данные изменены', reply_markup=kb.add_user_data)
+    await state.clear()
+
+
+@router.callback_query(F.data == 'name')
+async def edit_user(call: CallbackQuery, state: FSMContext):
+    await state.set_state(Form.name_edit)
+    await call.message.answer("Введите новое имя (только буквы):")
+
+
+@router.message(Form.name_edit)
+async def edit_user_reg(message: Message, state: FSMContext):
+    if not validate_name(message.text):
+        return await message.answer("Неверная имя! Используйте только буквы (мин. 2 символа).",
+                                    reply_markup=kb.add_user_data)
+    await state.update_data(name_edit=message.text.capitalize())
+    data_state = await state.get_data()
+    await db.update_name(data_state['name_edit'], data_state['edit_surname'], data_state['edit_name'])
+    await message.answer('Данные изменены', reply_markup=kb.add_user_data)
+    await state.clear()
+
+
+@router.callback_query(F.data == 'date')
+async def edit_user(call: CallbackQuery, state: FSMContext):
+    await state.set_state(Form.data_edit)
+    await call.message.answer("Введите новую дату\nВ формате ДД.ММ.ГГГГ:")
+
+
+@router.message(Form.data_edit)
+async def edit_user_reg(message: Message, state: FSMContext):
+    try:
+        datetime.strptime(message.text.replace(",", "."), "%d.%m.%Y").date()
+    except ValueError:
+        return await message.answer("Неверный формат даты! Используйте ДД.ММ.ГГГГ", reply_markup=kb.add_user_data)
+    await state.update_data(data_edit=message.text)
+    data_state = await state.get_data()
+    await db.update_data(data_state['data_edit'], data_state['edit_surname'], data_state['edit_name'])
+    await message.answer('Данные изменены', reply_markup=kb.add_user_data)
     await state.clear()
 
 
