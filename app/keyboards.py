@@ -26,6 +26,9 @@ delete = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🗑️Удалить', callback_data='delete'),
      InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)
 
+delete_one = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)
+
 view_birthday = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Даты рождения', callback_data='birthday')], ], resize_keyboard=True)
 
