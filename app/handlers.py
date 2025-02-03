@@ -109,6 +109,26 @@ async def delete_user(message: Message, state: FSMContext):
         await state.clear()
 
 
+@router.message(F.text == '✏️Редактировать')
+async def view_user(message: Message, state: FSMContext):
+    await state.clear()
+    await state.set_state(Form.edit_number)
+    list_id = await db.delete_select(message.from_user.id)
+    await state.update_data(edit_len_list=len(list_id.split('\n')) - 1)
+    if list_id:
+        await message.answer(f"{list_id}\nВведите порядковый номер\nДля редактирования данных")
+    else:
+        await message.answer('У вас нет данных для редактирования', reply_markup=kb.add_user_data)
+        await state.clear()
+
+
+@router.message(F.text == '🆕Добавить данные')
+async def add_data(message: Message, state: FSMContext):
+    await state.clear()
+    await state.set_state(Form.first_name)
+    await message.answer("Введите имя (только буквы):", reply_markup=kb.delete_one)
+
+
 @router.message(Form.del_number)
 async def delete_user_reg(message: Message, state: FSMContext):
     await state.update_data(del_number=message.text)
@@ -128,19 +148,6 @@ async def delete_user(call: CallbackQuery, state: FSMContext):
     await call.message.answer('Данные удалены', reply_markup=kb.add_user_data)
     await state.clear()
     await call.answer()
-
-
-@router.message(F.text == '✏️Редактировать')
-async def view_user(message: Message, state: FSMContext):
-    await state.clear()
-    await state.set_state(Form.edit_number)
-    list_id = await db.delete_select(message.from_user.id)
-    await state.update_data(edit_len_list=len(list_id.split('\n')) - 1)
-    if list_id:
-        await message.answer(f"{list_id}\nВведите порядковый номер\nДля редактирования данных")
-    else:
-        await message.answer('У вас нет данных для редактирования', reply_markup=kb.add_user_data)
-        await state.clear()
 
 
 @router.message(Form.edit_number)
