@@ -124,6 +124,17 @@ async def db_select():
         return data_txt
 
 
+async def select_data():
+    async with aiosqlite.connect('DATA/user.db') as db:
+        cursor = await db.execute(
+            "SELECT surname, name, data FROM users WHERE number != 0 ORDER BY delta_time ASC")
+        users = await cursor.fetchall()
+        data_txt = ""
+        for el in users:
+            data_txt += f"{el[0]} {el[1]} - {el[2]}\n"
+        return data_txt
+
+
 async def db_select_id():
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute("SELECT tg_id FROM users")

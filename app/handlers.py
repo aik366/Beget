@@ -65,8 +65,15 @@ async def add_cencel(message: Message, state: FSMContext):
 
 @router.message(F.text == '👁️Просмотр данных')
 async def add_user_viev(message: Message, state: FSMContext):
-    await message.answer(f"{await db.db_select()}")
+    await message.answer(f"{await db.db_select()}", reply_markup=kb.view_birthday)
     await state.clear()
+
+
+@router.callback_query(F.data == 'birthday')
+async def add_user_viev_data(call: CallbackQuery, state: FSMContext):
+    await call.message.answer(f"{await db.select_data()}", reply_markup=kb.add_user_data)
+    await state.clear()
+    await call.answer()
 
 
 @router.message(F.text == '✨Пожелания')
@@ -154,9 +161,18 @@ async def delete_user_reg(message: Message, state: FSMContext):
     if not message.text.isdigit() or int(message.text) > data_state['del_len_list'] or int(message.text) < 1:
         return await message.answer("Вы ввели неверное число\nПопробуйте ещё раз", reply_markup=kb.add_user_data)
     data_state = await state.get_data()
-    await db.delete_to_number(message.from_user.id, int(data_state['del_number']))
-    await message.answer('Данные удалены', reply_markup=kb.add_user_data)
+    surname, name, data = await db.edit_to_number(message.from_user.id, int(data_state['del_number']))
+    await state.update_data(edit_surname=surname, edit_name=name, edit_data=data)
+    await message.answer(f'{surname} {name} {data}', reply_markup=kb.delete)
+
+
+@router.callback_query(F.data == 'delete')
+async def delete_user(call: CallbackQuery, state: FSMContext):
+    data_state = await state.get_data()
+    await db.delete_to_number(call.from_user.id, int(data_state['del_number']))
+    await call.message.answer('Данные удалены', reply_markup=kb.add_user_data)
     await state.clear()
+    await call.answer()
 
 
 @router.message(F.text == '✏️Редактировать')
@@ -187,6 +203,7 @@ async def delete_user_reg(message: Message, state: FSMContext):
 async def edit_user(call: CallbackQuery, state: FSMContext):
     await state.set_state(Form.surname_edit)
     await call.message.answer("Введите новую фамилию (только буквы):")
+    await call.answer()
 
 
 @router.message(Form.surname_edit)
@@ -205,6 +222,7 @@ async def edit_user_reg(message: Message, state: FSMContext):
 async def edit_user(call: CallbackQuery, state: FSMContext):
     await state.set_state(Form.name_edit)
     await call.message.answer("Введите новое имя (только буквы):")
+    await call.answer()
 
 
 @router.message(Form.name_edit)
@@ -223,6 +241,7 @@ async def edit_user_reg(message: Message, state: FSMContext):
 async def edit_user(call: CallbackQuery, state: FSMContext):
     await state.set_state(Form.data_edit)
     await call.message.answer("Введите новую дату\nВ формате ДД.ММ.ГГГГ:")
+    await call.answer()
 
 
 @router.message(Form.data_edit)
@@ -236,6 +255,13 @@ async def edit_user_reg(message: Message, state: FSMContext):
     await db.update_data(data_state['data_edit'], data_state['edit_surname'], data_state['edit_name'])
     await message.answer('Данные изменены', reply_markup=kb.add_user_data)
     await state.clear()
+
+
+@router.callback_query(F.data == 'cancel')
+async def cancel(call: CallbackQuery, state: FSMContext):
+    await call.message.answer("Действие отменено", reply_markup=kb.add_user_data)
+    await state.clear()
+    await call.answer()
 
 
 @router.message(F.text == '33')
