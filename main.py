@@ -8,7 +8,7 @@ from app.handlers import router
 from app.handlers_admin import router_admin
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime
-from app.func import open_birthday, open_birthday_reminder
+from app.func import open_birthday, open_birthday_reminder, anekdot
 from app.database import delta_db
 
 
@@ -21,6 +21,7 @@ async def main():
     scheduler.add_job(open_birthday, trigger='cron', hour=12, minute=00, start_date=datetime.now(), kwargs={"bot": bot})
     scheduler.add_job(open_birthday_reminder, trigger='cron', hour=12, minute=00, start_date=datetime.now(),
                       kwargs={"bot": bot})
+    scheduler.add_job(anekdot, trigger='cron', hour=15, minute=00, start_date=datetime.now(), kwargs={"bot": bot})
     scheduler.start()
 
     dp.include_routers(router, router_admin)
