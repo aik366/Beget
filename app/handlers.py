@@ -126,7 +126,7 @@ async def view_user(message: Message, state: FSMContext):
 async def add_data(message: Message, state: FSMContext):
     await state.clear()
     await state.set_state(Form.first_name)
-    await message.answer("Введите имя (только буквы):", reply_markup=kb.delete_one)
+    await message.answer("Введите имя (только буквы):", reply_markup=kb.cancel_one)
 
 
 @router.message(Form.del_number)
@@ -227,13 +227,6 @@ async def cancel(call: CallbackQuery, state: FSMContext):
     await call.answer()
 
 
-@router.message(F.text == '🆕Добавить данные')
-async def add_data(message: Message, state: FSMContext):
-    await state.clear()
-    await state.set_state(Form.first_name)
-    await message.answer("Введите имя (только буквы):", reply_markup=kb.delete_one)
-
-
 @router.message(Form.first_name)
 async def process_first_name(message: Message, state: FSMContext):
     if not validate_name(message.text):
@@ -242,7 +235,7 @@ async def process_first_name(message: Message, state: FSMContext):
 
     await state.update_data(first_name=message.text.title())
     await state.set_state(Form.last_name)
-    await message.answer("Введите фамилию (только буквы):", reply_markup=kb.delete_one)
+    await message.answer("Введите фамилию (только буквы):", reply_markup=kb.cancel_one)
 
 
 @router.message(Form.last_name)
@@ -253,7 +246,7 @@ async def process_last_name(message: Message, state: FSMContext):
 
     await state.update_data(last_name=message.text.title())
     await state.set_state(Form.birthday)
-    await message.answer("Введите дату рождения (ДД.ММ.ГГГГ):", reply_markup=kb.delete_one)
+    await message.answer("Введите дату рождения (ДД.ММ.ГГГГ):", reply_markup=kb.cancel_one)
 
 
 @router.message(Form.birthday)
