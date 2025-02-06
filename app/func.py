@@ -4,6 +4,7 @@ from aiogram import Bot
 from app.database import birthday, birthday_reminder, db_select_id
 import requests
 from bs4 import BeautifulSoup
+from config import API_KEY
 
 
 async def open_birthday(bot: Bot):
@@ -20,7 +21,7 @@ async def open_birthday_reminder(bot: Bot):
             await bot.send_message(bot_id, f'{func_txt}')
 
 
-async def get_weather_forecast(api_key="85597ed8aaf227bb7be4fa572e63357d", city="Krasnodar", days=5):
+async def get_weather_forecast(api_key=API_KEY, city="Krasnodar", days=5):
     # Запрос к API
     url = "http://api.openweathermap.org/data/2.5/forecast"
     params = {
