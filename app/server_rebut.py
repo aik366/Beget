@@ -30,15 +30,15 @@ try:
 
     sftp.close()
 
-    command = 'sudo systemctl restart tg_bot.service'
-
-    stdin, stdout, stderr = ssh_client.exec_command(command)
-
-    if "sudo" in command:
-        stdin.write(f'{password}\n')  # Вводим пароль для sudo
-        stdin.flush()  # Принудительно отправляем данные
-
-    print("Сервер перезагружается...")
+    # command = 'sudo systemctl restart tg_bot.service'
+    #
+    # stdin, stdout, stderr = ssh_client.exec_command(command)
+    #
+    # if "sudo" in command:
+    #     stdin.write(f'{password}\n')  # Вводим пароль для sudo
+    #     stdin.flush()  # Принудительно отправляем данные
+    #
+    # print("Сервер перезагружается...")
 
 except Exception as e:
     print(f"Ошибка: {e}")
