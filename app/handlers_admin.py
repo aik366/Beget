@@ -61,8 +61,11 @@ async def process_caption(message: Message, state: FSMContext, bot: Bot):
     await state.update_data(caption=message.text)
     full_data = await state.get_data()
     for tg_id, name, data in await db.db_select_users():
-        await bot.send_photo(int(tg_id), full_data['photo_id'],
-                             caption=f"Привет {name}!\n{full_data['caption']}\nАдминистрация!!!")
+        try:
+            await bot.send_photo(int(tg_id), full_data['photo_id'],
+                                 caption=f"Привет {name}!\n{full_data['caption']}\nАдминистрация!!!")
+        except Exception as e:
+            await bot.send_message(MY_ID, f'Ошибка при отправке сообщения пользователю {tg_id}: {e}')
     await state.clear()
 
 
@@ -77,7 +80,10 @@ async def reg_admin_text_1(message: Message, bot: Bot, state: FSMContext):
     await state.update_data(text_1=message.text)
     data_state = await state.get_data()
     for tg_id, name, data in await db.db_select_users():
-        await bot.send_message(int(tg_id), f"Привет {name}!\n{data_state['text_1']}\nАдминистрация!!!")
+        try:
+            await bot.send_message(int(tg_id), f"Привет {name}!\n{data_state['text_1']}\nАдминистрация!!!")
+        except Exception as e:
+            await bot.send_message(MY_ID, f'Ошибка при отправке сообщения пользователю {tg_id}: {e}')
     await state.clear()
 
 
