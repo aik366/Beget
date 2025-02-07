@@ -4,21 +4,27 @@ from aiogram import Bot
 from app.database import birthday, birthday_reminder, db_select_id
 import requests
 from bs4 import BeautifulSoup
-from config import API_KEY
+from config import API_KEY, MY_ID
 
 
 async def open_birthday(bot: Bot):
     func_txt = await birthday()
     if func_txt != "none":
         for bot_id in await db_select_id():
-            await bot.send_message(bot_id, f'{func_txt}')
+            try:
+                await bot.send_message(bot_id, f'{func_txt}')
+            except Exception as e:
+                await bot.send_message(MY_ID, f'Ошибка при отправке сообщения пользователю {bot_id}: {e}')
 
 
 async def open_birthday_reminder(bot: Bot):
     func_txt = await birthday_reminder()
     if func_txt != "none":
         for bot_id in await db_select_id():
-            await bot.send_message(bot_id, f'{func_txt}')
+            try:
+                await bot.send_message(bot_id, f'{func_txt}')
+            except Exception as e:
+                await bot.send_message(MY_ID, f'Ошибка при отправке сообщения пользователю {bot_id}: {e}')
 
 
 async def get_weather_forecast(api_key=API_KEY, city="Krasnodar", days=5):
@@ -86,7 +92,10 @@ async def anekdot(bot: Bot):
         if anekdot_block:
             anekdot_text = anekdot_block.get_text(strip=True)
             for bot_id in await db_select_id():
-                await bot.send_message(bot_id, f'Анекдот дня:\n{anekdot_text}\n\n{await get_weather_forecast()}')
+                try:
+                    await bot.send_message(bot_id, f'Анекдот дня:\n{anekdot_text}\n\n{await get_weather_forecast()}')
+                except Exception as e:
+                    await bot.send_message(MY_ID, f'Ошибка при отправке анекдота пользователю {bot_id}: {e}')
 
 
 if __name__ == '__main__':
