@@ -27,6 +27,22 @@ async def open_birthday_reminder(bot: Bot):
                 await bot.send_message(MY_ID, f'Ошибка при отправке сообщения пользователю {bot_id}: {e}')
 
 
+async def currency():
+    data = requests.get('https://www.cbr-xml-daily.ru/daily_json.js').json()
+    bitcoin = requests.get('https://api.coinbase.com/v2/exchange-rates?currency=BTC').json()
+    eth = requests.get('https://api.coinbase.com/v2/exchange-rates?currency=ETH').json()
+
+    usd = data['Valute']['USD']['Value']
+    eur = data['Valute']['EUR']['Value']
+    amd = data['Valute']['AMD']['Value']
+
+    bitcoin = bitcoin['data']['rates']['USD']
+    eth = eth['data']['rates']['USD']
+
+    return (f'Доллар - {usd:.2f}руб.\nЕвро - {eur:.2f}руб.\n1000руб. - {100 / amd * 1000:.0f}драм\n\n'
+            f'BITCOIN - {bitcoin}\nETH - {eth}')
+
+
 async def get_weather_forecast(api_key=API_KEY, city="Krasnodar", days=5):
     # Запрос к API
     url = "http://api.openweathermap.org/data/2.5/forecast"
@@ -93,7 +109,9 @@ async def anekdot(bot: Bot):
             anekdot_text = anekdot_block.get_text(strip=True)
             for bot_id in await db_select_id():
                 try:
-                    await bot.send_message(bot_id, f'Анекдот дня:\n{anekdot_text}\n\n{await get_weather_forecast()}')
+                    await bot.send_message(bot_id, f'Анекдот дня:\n{anekdot_text}\n\n'
+                                                   f'Курсы валют:\n{await currency()}\n\n'
+                                                   f'{await get_weather_forecast()}')
                 except Exception as e:
                     await bot.send_message(MY_ID, f'Ошибка при отправке анекдота пользователю {bot_id}: {e}')
 
