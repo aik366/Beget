@@ -135,7 +135,7 @@ async def add_data(message: Message, state: FSMContext):
 @router.message(F.text == '😂Анекдот дня')
 async def open_wishes(message: Message, state: FSMContext):
     await state.clear()
-    await message.answer(f"{await fn.anekdot()}")
+    await message.answer(f"{await fn.anekdot_random()}")
 
 
 @router.message(F.text == '💲Курсы валют')

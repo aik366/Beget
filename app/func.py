@@ -1,4 +1,6 @@
 from datetime import datetime
+import asyncio
+import random
 
 from aiogram import Bot
 from app.database import birthday, birthday_reminder, db_select_id
@@ -99,7 +101,7 @@ async def get_weather_forecast(api_key=API_KEY, city="Krasnodar", days=5):
         return None
 
 
-async def anekdot():
+async def anekdot_dey():
     url = "https://anekdotov.net/anekdot/day/"
     response = requests.get(url)
     if response.status_code == 200:
@@ -110,10 +112,27 @@ async def anekdot():
             return anekdot_text
 
 
+async def anekdot_random():
+    url = "https://anekdotov.net/anekdot/day/"
+    response = requests.get(url)
+    if response.status_code == 200:
+        # Создаем объект BeautifulSoup для парсинга HTML
+        soup = BeautifulSoup(response.text, 'html.parser')
+        # Находим все блоки с анекдотами (элементы с классом anekdot)
+        anekdots_blocks = soup.find_all('div', class_='anekdot')
+
+        if anekdots_blocks:
+            random_anekdot_block = random.choice(anekdots_blocks)
+            random_anekdot_text = random_anekdot_block.get_text(strip=True)
+            return f"Случайный анекдот дня:\n{random_anekdot_text}"
+        else:
+            return "На странице не найдено анекдотов."
+
+
 async def all_func(bot: Bot):
     for bot_id in await db_select_id():
         try:
-            await bot.send_message(bot_id, f'Анекдот дня:\n{anekdot()}\n\n'
+            await bot.send_message(bot_id, f'Анекдот дня:\n{await anekdot_dey()}\n\n'
                                            f'Курсы валют:\n{await currency()}\n\n'
                                            f'{await get_weather_forecast()}')
         except Exception as e:
@@ -121,4 +140,4 @@ async def all_func(bot: Bot):
 
 
 if __name__ == '__main__':
-    pass
+    print(asyncio.run(anekdot_random()))
