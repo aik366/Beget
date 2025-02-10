@@ -6,6 +6,7 @@ from aiogram.fsm.context import FSMContext
 from config import MY_ID
 from random import choice
 from datetime import datetime
+import app.func as fn
 import os
 
 import app.database as db
@@ -127,6 +128,24 @@ async def add_data(message: Message, state: FSMContext):
     await state.clear()
     await state.set_state(Form.first_name)
     await message.answer("Введите имя (только буквы):", reply_markup=kb.cancel_one)
+
+
+@router.message(F.text == '😂Анекдот дня')
+async def open_wishes(message: Message, state: FSMContext):
+    await state.clear()
+    await message.answer(f"{await fn.anekdot()}")
+
+
+@router.message(F.text == '💲Курсы валют')
+async def open_wishes(message: Message, state: FSMContext):
+    await state.clear()
+    await message.answer(f"{await fn.currency()}")
+
+
+@router.message(F.text == '🌦️Погода')
+async def open_wishes(message: Message, state: FSMContext):
+    await state.clear()
+    await message.answer(f"{await fn.get_weather_forecast()}")
 
 
 @router.message(Form.del_number)

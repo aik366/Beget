@@ -99,7 +99,7 @@ async def get_weather_forecast(api_key=API_KEY, city="Krasnodar", days=5):
         return None
 
 
-async def anekdot(bot: Bot):
+async def anekdot():
     url = "https://anekdotov.net/anekdot/day/"
     response = requests.get(url)
     if response.status_code == 200:
@@ -107,13 +107,17 @@ async def anekdot(bot: Bot):
         anekdot_block = soup.find('div', class_='anekdot')
         if anekdot_block:
             anekdot_text = anekdot_block.get_text(strip=True)
-            for bot_id in await db_select_id():
-                try:
-                    await bot.send_message(bot_id, f'Анекдот дня:\n{anekdot_text}\n\n'
-                                                   f'Курсы валют:\n{await currency()}\n\n'
-                                                   f'{await get_weather_forecast()}')
-                except Exception as e:
-                    await bot.send_message(MY_ID, f'Ошибка при отправке анекдота пользователю {bot_id}: {e}')
+            return anekdot_text
+
+
+async def all_func(bot: Bot):
+    for bot_id in await db_select_id():
+        try:
+            await bot.send_message(bot_id, f'Анекдот дня:\n{anekdot()}\n\n'
+                                           f'Курсы валют:\n{await currency()}\n\n'
+                                           f'{await get_weather_forecast()}')
+        except Exception as e:
+            await bot.send_message(MY_ID, f'Ошибка при отправке анекдота пользователю {bot_id}: {e}')
 
 
 if __name__ == '__main__':

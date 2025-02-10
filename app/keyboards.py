@@ -6,8 +6,10 @@ add_user_data = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🆕Доба
                                                KeyboardButton(text='✏️Редактировать')],
                                               [KeyboardButton(text='✨Пожелания'),
                                                KeyboardButton(text='🥂Тост'), ],
+                                              [KeyboardButton(text='😂Анекдот дня'),
+                                               KeyboardButton(text='💲Курсы валют'), ],
                                               [KeyboardButton(text='🎁Открытки'),
-                                               KeyboardButton(text='❌Отмена'), ], ], resize_keyboard=True)
+                                               KeyboardButton(text='🌦️Погода'), ], ], resize_keyboard=True)
 
 admin = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🗑️Удалить по ID'),
                                        KeyboardButton(text='Удалить данные'), ],
