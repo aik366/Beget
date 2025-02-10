@@ -37,8 +37,10 @@ def validate_name(name):
 
 
 @router.message(CommandStart())
-async def cmd_start(message: Message, state: FSMContext):
+async def cmd_start(message: Message, bot: Bot, state: FSMContext):
     await db.start_db(message.from_user.id, message.from_user.full_name)
+    if message.from_user.id != MY_ID:
+        await bot.send_message(MY_ID, f'Пользователь {message.from_user.full_name} начал работу с ботом')
     await message.answer('Привет!', reply_markup=kb.add_user_data)
     await state.clear()
 
