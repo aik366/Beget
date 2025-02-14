@@ -86,10 +86,13 @@ async def get_weather_forecast(api_key=API_KEY, city="Krasnodar", days=5):
                 "humidity": day_data[0]["main"]["humidity"]
             })
         if result:
+            weekday_dict = {0: 'Понедельник', 1: 'Вторник', 2: 'Среда', 3: 'Четверг', 4: 'Пятница', 5: 'Суббота',
+                            6: 'Воскресенье'}
             date_txt = "Прогноз погоды в\nКраснодаре на 5 дней:\n---\n"
             for day in result:
+                week_day = weekday_dict[datetime.strptime(day['date'], "%Y-%m-%d").weekday()]
                 day_split = day['date'].split("-")
-                date_txt += f"{day_split[2]}.{day_split[1]}.{day_split[0]}:\n"
+                date_txt += f"{week_day} - {day_split[2]}.{day_split[1]}.{day_split[0]}:\n"
                 date_txt += f"от {day['temp_min']}°C до {day['temp_max']}°C\n"
                 date_txt += f"{day['description'].capitalize()}\n"
                 date_txt += f"---\n"
@@ -140,4 +143,4 @@ async def all_func(bot: Bot):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(anekdot_random()))
+    print(asyncio.run(get_weather_forecast()))
