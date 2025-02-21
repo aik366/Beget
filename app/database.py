@@ -49,7 +49,7 @@ async def create_table():
 
 async def add_column():
     async with aiosqlite.connect('../DATA/user.db') as db:
-        await db.execute("ALTER TABLE users_data ADD age INTEGER")
+        await db.execute("ALTER TABLE users ADD note_data TEXT")
 
 
 async def start_db(tg_id, full_name, number=0, id_data=my_time):
@@ -102,7 +102,7 @@ async def update_data(new_data, surname, name):
 
 async def delta_db(e):
     async with aiosqlite.connect('DATA/user.db') as db:
-        cursor = await db.execute("SELECT * FROM users WHERE number != 0")
+        cursor = await db.execute("SELECT * FROM users WHERE number == 1")
         users = await cursor.fetchall()
         for el in users:
             tmp = str(el[6]).split('.')
@@ -116,7 +116,7 @@ async def delta_db(e):
 async def db_select():
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute(
-            "SELECT surname, name, delta_time, age FROM users WHERE number != 0 ORDER BY delta_time ASC")
+            "SELECT surname, name, delta_time, age FROM users WHERE number == 1 ORDER BY delta_time ASC")
         users = await cursor.fetchall()
         data_txt = ""
         for el in users:
@@ -127,7 +127,7 @@ async def db_select():
 async def select_data():
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute(
-            "SELECT surname, name, data FROM users WHERE number != 0 ORDER BY delta_time ASC")
+            "SELECT surname, name, data FROM users WHERE number == 1 ORDER BY delta_time ASC")
         users = await cursor.fetchall()
         data_txt = ""
         for el in users:
@@ -152,7 +152,7 @@ async def db_select_users():
 async def delete_select(tg_id):
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute(
-            "SELECT surname, name, data FROM users WHERE tg_id == ? AND number != 0 ORDER BY delta_time ASC",
+            "SELECT surname, name, data FROM users WHERE tg_id == ? AND number == 1 ORDER BY delta_time ASC",
             (tg_id,))
         users = await cursor.fetchall()
         data_txt = ""
@@ -164,7 +164,7 @@ async def delete_select(tg_id):
 async def delete_to_number(tg_id, number):
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute(
-            "SELECT surname, name FROM users WHERE tg_id == ? AND number != 0 ORDER BY delta_time ASC",
+            "SELECT surname, name FROM users WHERE tg_id == ? AND number == 1 ORDER BY delta_time ASC",
             (tg_id,))
         users = await cursor.fetchall()
         data_dict = {}
@@ -179,7 +179,7 @@ async def delete_to_number(tg_id, number):
 async def edit_to_number(tg_id, number):
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute(
-            "SELECT surname, name, data FROM users WHERE tg_id == ? AND number != 0 ORDER BY delta_time ASC",
+            "SELECT surname, name, data FROM users WHERE tg_id == ? AND number == 1 ORDER BY delta_time ASC",
             (tg_id,))
         users = await cursor.fetchall()
         data_dict = {}
@@ -224,12 +224,67 @@ async def birthday():
         return "none"
 
 
+async def add_note(tg_id, note_name, note_text):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        await db.execute("INSERT INTO users (tg_id, number, note_name, note_text, note_data) "
+                         "VALUES (?, ?, ?, ?, ?)",
+                         (tg_id, 2, note_name, note_text, my_time))
+        await db.commit()
+
+
+async def update_note_name(tg_id, new_name, note_name, note_text):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        await db.execute("UPDATE users SET note_name = ? WHERE tg_id = ? AND note_name = ? AND note_text = ?",
+                         (new_name, tg_id, note_name, note_text))
+        await db.commit()
+
+
+async def update_note_text(tg_id, new_text, note_name, note_text):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        await db.execute("UPDATE users SET note_text = ? WHERE tg_id = ? AND note_name = ? AND note_text = ?",
+                         (new_text, tg_id, note_name, note_text))
+        await db.commit()
+
+
+async def select_note(tg_id):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        cursor = await db.execute(
+            "SELECT note_name, note_text FROM users WHERE tg_id == ? AND number == 2",
+            (tg_id,))
+        users = await cursor.fetchall()
+        data_dict = {}
+        for num, el in enumerate(users, 1):
+            data_dict[num] = [el[0], el[1]]
+        return data_dict
+
+
+async def note_delete(tg_id, note_name, note_text):
+    async with aiosqlite.connect('DATA/user.db') as db:
+        await db.execute("DELETE FROM users WHERE tg_id = ? AND note_name = ? AND note_text = ?",
+                         (tg_id, note_name, note_text))
+        await db.commit()
+
+
+async def edit_note_text(tg_id, number):
+    async with aiosqlite.connect('../DATA/user.db') as db:
+        cursor = await db.execute(
+            "SELECT note_text, note_data FROM users WHERE tg_id == ? AND number == 2 ORDER BY note_data ASC",
+            (tg_id,))
+        users = await cursor.fetchall()
+        data_dict = {}
+        for num, el in enumerate(users, 1):
+            data_dict[num] = [el[0], el[1]]
+        return data_dict[number]
+
+
 if __name__ == '__main__':
     pass
     # print(my_time)
     # asyncio.run(create_table())
-    # print(asyncio.run(delta_db()))
-    # asyncio.run(add_column())
+    # print(asyncio.run(add_note_text(428030603, "note_text_3")))
+    # print(asyncio.run(select_note(428030603)))
+    # print(asyncio.run(edit_note_text(428030603, 3)))
+    asyncio.run(add_column())
     # asyncio.run(add_db("Галстян Айк 22.04.1972"))
     # asyncio.run(update_surname("Галстян", "Погосян", "Айк"))
     # asyncio.run(delta_db(''))
