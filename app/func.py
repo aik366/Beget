@@ -127,7 +127,7 @@ async def anekdot_random():
         if anekdots_blocks:
             random_anekdot_block = random.choice(anekdots_blocks)
             random_anekdot_text = random_anekdot_block.get_text(strip=True)
-            return f"Случайный анекдот дня:\n{random_anekdot_text}"
+            return f"{random_anekdot_text}"
         else:
             return "На странице не найдено анекдотов."
 
@@ -135,7 +135,7 @@ async def anekdot_random():
 async def all_func(bot: Bot):
     for bot_id in await db_select_id():
         try:
-            await bot.send_message(bot_id, f'Анекдот дня:\n{await anekdot_dey()}\n\n'
+            await bot.send_message(bot_id, f'Анекдот дня:\n{await anekdot_random()}\n\n'
                                            f'Курсы валют:\n{await currency()}\n\n'
                                            f'{await get_weather_forecast()}')
         except Exception as e:
