@@ -10,8 +10,7 @@ add_user_data = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🆕Доба
                                               [KeyboardButton(text='😂Анекдот дня'),
                                                KeyboardButton(text='💲Курсы валют'),
                                                KeyboardButton(text='🌦️Погода'), ],
-                                              [KeyboardButton(text='📝Заметки'),
-                                               KeyboardButton(text='📝Мои заметки'), ], ], resize_keyboard=True)
+                                              [KeyboardButton(text='📝Заметки'), ], ], resize_keyboard=True)
 
 admin = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='🗑️Удалить по ID'),
                                        KeyboardButton(text='Удалить данные'), ],
@@ -30,7 +29,7 @@ edit_note = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Просмотр', callback_data='note_view'),
      InlineKeyboardButton(text='Удалить', callback_data='note_delete'), ],
     [InlineKeyboardButton(text='Редактировать', callback_data='note_edit'),
-     InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)
+     InlineKeyboardButton(text='❌Отмена', callback_data='cancel_note')], ], resize_keyboard=True)
 
 delete = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🗑️Удалить', callback_data='delete'),
@@ -38,12 +37,12 @@ delete = InlineKeyboardMarkup(inline_keyboard=[
 
 note_delete = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🗑️Удалить', callback_data='delete_note'),
-     InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)
+     InlineKeyboardButton(text='❌Отмена', callback_data='cancel_note')], ], resize_keyboard=True)
 
 note_edit = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Имя заметки', callback_data='edit_name'),
      InlineKeyboardButton(text='Текст заметки', callback_data='edit_text'),
-     InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)
+     InlineKeyboardButton(text='❌Отмена', callback_data='cancel_note')], ], resize_keyboard=True)
 
 cancel_one = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)
@@ -51,6 +50,7 @@ cancel_one = InlineKeyboardMarkup(inline_keyboard=[
 view_birthday = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Даты рождения', callback_data='birthday')], ], resize_keyboard=True)
 
-# get_number = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text='Отправить номер',
-#                                                            request_contact=True)]],
-#                                  resize_keyboard=True)
+note_list = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="📝Добавить заметку"),
+                                          KeyboardButton(text="📋Мои заметки")],
+                                          [KeyboardButton(text="🏠Главное меню"),
+                                           KeyboardButton(text="❌Отмена")]], resize_keyboard=True,)

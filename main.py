@@ -5,6 +5,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from config import TOKEN
 from app.handlers import router
+from app.handlers_notes import router_notes
 from app.handlers_admin import router_admin
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime
@@ -24,7 +25,7 @@ async def main():
     scheduler.add_job(all_func, trigger='cron', hour=15, minute=00, start_date=datetime.now(), kwargs={"bot": bot})
     scheduler.start()
 
-    dp.include_routers(router, router_admin)
+    dp.include_routers(router, router_notes, router_admin)
     await dp.start_polling(bot)
 
 

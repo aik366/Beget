@@ -52,7 +52,7 @@ async def cmd_start(message: Message, bot: Bot, state: FSMContext):
     await db.start_db(message.from_user.id, message.from_user.full_name)
     if message.from_user.id != MY_ID:
         await bot.send_message(MY_ID, f'Пользователь {message.from_user.full_name} начал работу с ботом')
-    await message.answer('Привет!', reply_markup=kb.add_user_data)
+    await message.answer(f'Привет! {message.from_user.full_name}', reply_markup=kb.add_user_data)
     await state.clear()
 
 
@@ -68,6 +68,12 @@ async def cmd_admin(message: Message, state: FSMContext):
         await message.answer('Вы не администратор')
         return
     await message.answer('Вы нажали на кнопку администратора', reply_markup=kb.admin)
+    await state.clear()
+
+
+@router.message(F.text == '🏠Главное меню')
+async def start_menu(message: Message, state: FSMContext):
+    await message.answer('Главное меню', reply_markup=kb.add_user_data)
     await state.clear()
 
 
@@ -164,11 +170,17 @@ async def open_wishes(message: Message, state: FSMContext):
 @router.message(F.text == '📝Заметки')
 async def note_text(message: Message, state: FSMContext):
     await state.clear()
+    await message.answer("Ты в меню добавления заметок.\nВыбери необходимое действие.", reply_markup=kb.note_list)
+
+
+@router.message(F.text == '📝Добавить заметку')
+async def note_text(message: Message, state: FSMContext):
+    await state.clear()
     await state.set_state(Notes.fsm_note_name)
-    await message.answer("Пишите название заметки 👇", reply_markup=kb.cancel_one)
+    await message.answer("Пишите название заметки 👇", reply_markup=kb.note_list)
 
 
-@router.message(F.text == '📝Мои заметки')
+@router.message(F.text == '📋Мои заметки')
 async def my_note_text(message: Message, state: FSMContext):
     await state.clear()
     await state.set_state(Notes.note_number)
@@ -178,10 +190,10 @@ async def my_note_text(message: Message, state: FSMContext):
         for key in notes_dict:
             await message.answer(f"{key}. {notes_dict[key][0]}")
         await message.answer("Выберите номер заметки Для\nпросмотра, удаления и редактирования",
-                             reply_markup=kb.add_user_data)
+                             reply_markup=kb.note_list)
     else:
         await message.answer("У вас нет заметок",
-                             reply_markup=kb.add_user_data)
+                             reply_markup=kb.note_list)
 
 
 @router.message(Notes.note_number)
@@ -193,16 +205,15 @@ async def number_note(message: Message, state: FSMContext):
         num = int(data_state['note_namber'])
         await message.answer(f"{num}. {data_state['note_list'][num][0]}", reply_markup=kb.edit_note)
     except Exception as e:
-        await message.answer("Что то пе то, попробуй еще раз, все по новой")
+        await message.answer("По этому номеру заметок нет!", reply_markup=kb.note_list)
 
 
 @router.callback_query(Notes.note_all, F.data == 'note_view')
 async def view_note(call: CallbackQuery, state: FSMContext):
     data_state = await state.get_data()
     num = int(data_state['note_namber'])
-    await call.message.answer(f"{data_state['note_list'][num][1]}")
+    await call.message.answer(f"{data_state['note_list'][num][1]}", reply_markup=kb.note_list)
     await call.answer()
-    await state.clear()
 
 
 @router.callback_query(Notes.note_all, F.data == 'note_edit')
@@ -217,7 +228,7 @@ async def edit_note(call: CallbackQuery, state: FSMContext):
 async def edit_note_name(call: CallbackQuery, state: FSMContext):
     await state.update_data(note_edit=call.data)
     await state.set_state(Notes.name_text)
-    await call.message.answer("Пишите Имя заметки 👇", reply_markup=kb.cancel_one)
+    await call.message.answer("Пишите Имя заметки 👇", reply_markup=kb.note_list)
     await call.answer()
 
 
@@ -225,7 +236,7 @@ async def edit_note_name(call: CallbackQuery, state: FSMContext):
 async def edit_note_text(call: CallbackQuery, state: FSMContext):
     await state.update_data(note_edit=call.data)
     await state.set_state(Notes.name_text)
-    await call.message.answer("Пишите текст заметки 👇", reply_markup=kb.cancel_one)
+    await call.message.answer("Пишите текст заметки 👇", reply_markup=kb.note_list)
     await call.answer()
 
 
@@ -237,10 +248,10 @@ async def save_note(message: Message, state: FSMContext):
     note_name, note_text = data_state['note_list'][num]
     if data_state['note_edit'] == 'edit_name':
         await db.update_note_name(message.from_user.id, data_state['name_text'], note_name, note_text)
-        await message.answer("Имя заметки сохранена", reply_markup=kb.add_user_data)
+        await message.answer("Имя заметки сохранена", reply_markup=kb.note_list)
     else:
         await db.update_note_text(message.from_user.id, data_state['name_text'], note_name, note_text)
-        await message.answer("Текст сохранена", reply_markup=kb.add_user_data)
+        await message.answer("Текст сохранена", reply_markup=kb.note_list)
     await state.clear()
 
 
@@ -261,7 +272,7 @@ async def delete_note_es(call: CallbackQuery, state: FSMContext):
     num = int(data_state['note_namber'])
     note_name, note_text = data_state['note_list'][num]
     await db.note_delete(call.from_user.id, note_name, note_text)
-    await call.message.answer("Заметка удалена!!!")
+    await call.message.answer("Заметка удалена!!!", reply_markup=kb.note_list)
     await call.answer()
     await state.clear()
 
@@ -270,7 +281,7 @@ async def delete_note_es(call: CallbackQuery, state: FSMContext):
 async def text_note(message: Message, state: FSMContext):
     await state.update_data(fsm_note_name=message.text)
     await state.set_state(Notes.fsm_note_text)
-    await message.answer("Пишите текст заметки 👇", reply_markup=kb.cancel_one)
+    await message.answer("Пишите текст заметки 👇", reply_markup=kb.note_list)
 
 
 @router.message(Notes.fsm_note_text)
@@ -278,7 +289,7 @@ async def save_note(message: Message, state: FSMContext):
     await state.update_data(fsm_note_text=message.text)
     data_state = await state.get_data()
     await db.add_note(message.from_user.id, data_state['fsm_note_name'], data_state['fsm_note_text'])
-    await message.answer("Заметка сохранена", reply_markup=kb.add_user_data)
+    await message.answer("Заметка сохранена", reply_markup=kb.note_list)
 
 
 @router.message(Form.del_number)
@@ -297,7 +308,7 @@ async def delete_user_reg(message: Message, state: FSMContext):
 async def delete_user(call: CallbackQuery, state: FSMContext):
     data_state = await state.get_data()
     await db.delete_to_number(call.from_user.id, int(data_state['del_number']))
-    await call.message.answer('Данные удалены', reply_markup=kb.add_user_data)
+    await call.message.answer('Данные удалены', reply_markup=kb.note_list)
     await state.clear()
     await call.answer()
 
@@ -307,7 +318,7 @@ async def view_user_reg(message: Message, state: FSMContext):
     await state.update_data(edit_number=message.text)
     data_state = await state.get_data()
     if not message.text.isdigit() or int(message.text) > data_state['edit_len_list'] or int(message.text) < 1:
-        return await message.answer("Вы ввели неверное число\nПопробуйте ещё раз", reply_markup=kb.add_user_data)
+        return await message.answer("Вы ввели неверное число\nПопробуйте ещё раз", reply_markup=kb.note_list)
     data_state = await state.get_data()
     surname, name, data = await db.edit_to_number(message.from_user.id, int(data_state['edit_number']))
     await state.update_data(edit_surname=surname, edit_name=name, edit_data=data)
@@ -375,6 +386,13 @@ async def edit_user_reg(message: Message, state: FSMContext):
 @router.callback_query(F.data == 'cancel')
 async def cancel(call: CallbackQuery, state: FSMContext):
     await call.message.answer("Действие отменено", reply_markup=kb.add_user_data)
+    await state.clear()
+    await call.answer()
+
+
+@router.callback_query(F.data == 'cancel_note')
+async def cancel(call: CallbackQuery, state: FSMContext):
+    await call.message.answer("Действие отменено", reply_markup=kb.note_list)
     await state.clear()
     await call.answer()
 
