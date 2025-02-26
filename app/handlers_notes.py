@@ -1,13 +1,7 @@
-from aiogram import F, Router, Bot
-from aiogram.types import Message, CallbackQuery, FSInputFile, InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.filters import CommandStart, Command, Filter
+from aiogram import F, Router
+from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
-from config import MY_ID
-from random import choice
-from datetime import datetime
-import app.func as fn
-import os
 
 import app.database as db
 import app.keyboards as kb
@@ -24,6 +18,9 @@ class Notes(StatesGroup):
     note_delete = State()
     note_edit = State()
     name_text = State()
+    note_new_add = State()
+    new_text = State()
+    add_text = State()
 
 
 @router_notes.message(F.text == '📝Заметки')
@@ -103,7 +100,8 @@ async def number_note(message: Message, state: FSMContext):
         await state.set_state(Notes.note_all)
         data_state = await state.get_data()
         num = int(data_state['note_namber'])
-        await message.answer(f"{num}. {data_state['note_list'][num][0]}", reply_markup=kb.edit_note)
+        await message.answer(f"{num}. {data_state['note_list'][num][0]}[{data_state['note_list'][num][2]}]",
+                             reply_markup=kb.edit_note)
     except Exception as e:
         await state.set_state(Notes.note_number)
         await message.answer("По этому номеру заметок нет!", reply_markup=kb.note_list)
@@ -153,14 +151,6 @@ async def edit_note_name(call: CallbackQuery, state: FSMContext):
     await call.answer()
 
 
-@router_notes.callback_query(Notes.note_edit, F.data == 'edit_text')
-async def edit_note_text(call: CallbackQuery, state: FSMContext):
-    await state.update_data(note_edit=call.data)
-    await state.set_state(Notes.name_text)
-    await call.message.answer("Пишите текст заметки 👇", reply_markup=kb.note_list)
-    await call.answer()
-
-
 @router_notes.message(Notes.name_text)
 async def save_note(message: Message, state: FSMContext):
     await state.update_data(name_text=message.text)
@@ -168,12 +158,57 @@ async def save_note(message: Message, state: FSMContext):
     num = int(data_state['note_namber'])
     note_name = data_state['note_list'][num][0]
     note_text = data_state['note_list'][num][1]
-    if data_state['note_edit'] == 'edit_name':
-        await db.update_note_name(message.from_user.id, data_state['name_text'], note_name, note_text)
-        await message.answer("Имя заметки сохранена", reply_markup=kb.note_list)
-    else:
-        await db.update_note_text(message.from_user.id, data_state['name_text'], note_name, note_text)
-        await message.answer("Текст сохранена", reply_markup=kb.note_list)
+    await db.update_note_name(message.from_user.id, data_state['name_text'], note_name, note_text)
+    await message.answer("Имя заметки сохранена", reply_markup=kb.note_list)
+    await state.clear()
+
+
+@router_notes.callback_query(Notes.note_edit, F.data == 'edit_text')
+async def edit_note_text(call: CallbackQuery, state: FSMContext):
+    await state.update_data(note_edit=call.data)
+    await state.set_state(Notes.note_new_add)
+    await call.message.answer("Добавить к тексту или новый текст?", reply_markup=kb.note_edit_content)
+    await call.answer()
+
+
+@router_notes.callback_query(Notes.note_new_add, F.data == 'new_text')
+async def note_new(call: CallbackQuery, state: FSMContext):
+    await state.update_data(note_edit_text=call.data)
+    await state.set_state(Notes.new_text)
+    await call.message.answer("Пишите новый текст заметки 👇", reply_markup=kb.note_list)
+    await call.answer()
+
+
+@router_notes.message(Notes.new_text)
+async def note_new_text(message: Message, state: FSMContext):
+    await state.update_data(new_text=message.text)
+    data_state = await state.get_data()
+    num = int(data_state['note_namber'])
+    note_name = data_state['note_list'][num][0]
+    note_text = data_state['note_list'][num][1]
+    await db.update_note_text(message.from_user.id, data_state['new_text'], note_name, note_text)
+    await message.answer("Новый текст сохранена", reply_markup=kb.note_list)
+    await state.clear()
+
+
+@router_notes.callback_query(Notes.note_new_add, F.data == 'add_text')
+async def note_add(call: CallbackQuery, state: FSMContext):
+    await state.update_data(note_edit_text=call.data)
+    await state.set_state(Notes.add_text)
+    await call.message.answer("Пишите текст для добавления к заметке 👇", reply_markup=kb.note_list)
+    await call.answer()
+
+
+@router_notes.message(Notes.add_text)
+async def note_add_text(message: Message, state: FSMContext):
+    await state.update_data(add_text=message.text)
+    data_state = await state.get_data()
+    num = int(data_state['note_namber'])
+    note_name = data_state['note_list'][num][0]
+    note_text = data_state['note_list'][num][1]
+    all_text = f"{note_text}\n{data_state['add_text']}"
+    await db.update_note_text(message.from_user.id, all_text, note_name, note_text)
+    await message.answer("Текст добавлен к заметке", reply_markup=kb.note_list)
     await state.clear()
 
 
@@ -215,7 +250,7 @@ async def cancel(call: CallbackQuery, state: FSMContext):
 
 
 @router_notes.callback_query(F.data == 'cancel_note')
-async def cancel(call: CallbackQuery, state: FSMContext):
+async def cancel_note(call: CallbackQuery, state: FSMContext):
     await call.message.answer("Действие отменено", reply_markup=kb.note_list)
     await state.clear()
     await call.answer()

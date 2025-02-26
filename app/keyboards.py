@@ -44,6 +44,11 @@ note_edit = InlineKeyboardMarkup(inline_keyboard=[
      InlineKeyboardButton(text='Текст заметки', callback_data='edit_text'),
      InlineKeyboardButton(text='❌Отмена', callback_data='cancel_note')], ], resize_keyboard=True)
 
+note_edit_content = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Добавить', callback_data='add_text'),
+     InlineKeyboardButton(text='Новый', callback_data='new_text'),
+     InlineKeyboardButton(text='❌Отмена', callback_data='cancel_note')], ], resize_keyboard=True)
+
 cancel_one = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)
 
@@ -51,6 +56,6 @@ view_birthday = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Даты рождения', callback_data='birthday')], ], resize_keyboard=True)
 
 note_list = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="📝Добавить заметку"),
-                                          KeyboardButton(text="📋Мои заметки")],
+                                           KeyboardButton(text="📋Мои заметки")],
                                           [KeyboardButton(text="🏠Главное меню"),
-                                           KeyboardButton(text="❌Отмена")]], resize_keyboard=True,)
+                                           KeyboardButton(text="❌Отмена")]], resize_keyboard=True, )
