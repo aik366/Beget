@@ -206,7 +206,7 @@ async def note_add_text(message: Message, state: FSMContext):
     num = int(data_state['note_namber'])
     note_name = data_state['note_list'][num][0]
     note_text = data_state['note_list'][num][1]
-    all_text = f"{note_text}\n{data_state['add_text']}"
+    all_text = f"{note_text}\n----\n{data_state['add_text']}"
     await db.update_note_text(message.from_user.id, all_text, note_name, note_text)
     await message.answer("Текст добавлен к заметке", reply_markup=kb.note_list)
     await state.clear()
