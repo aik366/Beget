@@ -49,7 +49,7 @@ async def create_table():
 
 async def add_column():
     async with aiosqlite.connect('../DATA/user.db') as db:
-        await db.execute("ALTER TABLE users ADD note_data TEXT")
+        await db.execute("ALTER TABLE users ADD file_id TEXT")
 
 
 async def start_db(tg_id, full_name, number=0, id_data=my_time):
@@ -224,11 +224,11 @@ async def birthday():
         return "none"
 
 
-async def add_note(tg_id, note_name, note_text):
+async def add_note(tg_id, note_name, note_text=None, note_type=None, file_id=None):
     async with aiosqlite.connect('DATA/user.db') as db:
-        await db.execute("INSERT INTO users (tg_id, number, note_name, note_text, note_data) "
-                         "VALUES (?, ?, ?, ?, ?)",
-                         (tg_id, 2, note_name, note_text, my_time))
+        await db.execute("INSERT INTO users (tg_id, number, note_name, note_text, note_data, note_type, file_id) "
+                         "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                         (tg_id, 2, note_name, note_text, my_time, note_type, file_id))
         await db.commit()
 
 
@@ -249,12 +249,12 @@ async def update_note_text(tg_id, new_text, note_name, note_text):
 async def select_note(tg_id):
     async with aiosqlite.connect('DATA/user.db') as db:
         cursor = await db.execute(
-            "SELECT note_name, note_text FROM users WHERE tg_id == ? AND number == 2",
+            "SELECT note_name, note_text, note_type, file_id FROM users WHERE tg_id == ? AND number == 2",
             (tg_id,))
         users = await cursor.fetchall()
         data_dict = {}
         for num, el in enumerate(users, 1):
-            data_dict[num] = [el[0], el[1]]
+            data_dict[num] = [el[0], el[1], el[2], el[3]]
         return data_dict
 
 
