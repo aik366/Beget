@@ -1,5 +1,5 @@
 from aiogram import F, Router
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 
@@ -80,31 +80,29 @@ async def save_note(message: Message, state: FSMContext):
 @router_notes.message(F.text == '📋Мои заметки')
 async def my_note_text(message: Message, state: FSMContext):
     await state.clear()
-    await state.set_state(Notes.note_number)
     notes_dict = await db.select_note(message.from_user.id)
     if notes_dict:
         await state.update_data(note_list=notes_dict)
+        in_kb = []
         for key in notes_dict:
-            await message.answer(f"{key}. {notes_dict[key][0]}[{notes_dict[key][2]}]")
-        await message.answer("Выберите номер заметки Для\nпросмотра, удаления и редактирования",
-                             reply_markup=kb.note_list)
+            in_kb.append([InlineKeyboardButton(text=f'{key}. {notes_dict[key][0]}[{notes_dict[key][2]}]',
+                                               callback_data=f'notes_{key}')])
+        keyboard = InlineKeyboardMarkup(inline_keyboard=in_kb, resize_keyboard=True, one_time_keyboard=True)
+        await message.answer("Ваши заметки", reply_markup=keyboard)
     else:
         await message.answer("У вас нет заметок",
                              reply_markup=kb.note_list)
 
 
-@router_notes.message(Notes.note_number)
-async def number_note(message: Message, state: FSMContext):
-    try:
-        await state.update_data(note_namber=message.text)
-        await state.set_state(Notes.note_all)
-        data_state = await state.get_data()
-        num = int(data_state['note_namber'])
-        await message.answer(f"{num}. {data_state['note_list'][num][0]}[{data_state['note_list'][num][2]}]",
-                             reply_markup=kb.edit_note)
-    except Exception as e:
-        await state.set_state(Notes.note_number)
-        await message.answer("По этому номеру заметок нет!", reply_markup=kb.note_list)
+@router_notes.callback_query(F.data.startswith('notes_'))
+async def note_view(call: CallbackQuery, state: FSMContext):
+    await state.update_data(note_namber=call.data.split('_')[1])
+    await state.set_state(Notes.note_all)
+    data_state = await state.get_data()
+    num = int(data_state['note_namber'])
+    await call.message.answer(f"{num}. {data_state['note_list'][num][0]}[{data_state['note_list'][num][2]}]",
+                         reply_markup=kb.edit_note)
+    await call.answer()
 
 
 @router_notes.callback_query(Notes.note_all, F.data == 'note_view')
