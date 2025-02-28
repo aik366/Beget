@@ -77,6 +77,9 @@ async def save_note(message: Message, state: FSMContext):
     await state.clear()
 
 
+type_dict = {'text': '📝', 'photo': '🖼️', 'document': '📄', 'voice': '🎤', 'audio': '🎵', 'video': '🎞'}
+
+
 @router_notes.message(F.text == '📋Мои заметки')
 async def my_note_text(message: Message, state: FSMContext):
     await state.clear()
@@ -85,7 +88,7 @@ async def my_note_text(message: Message, state: FSMContext):
         await state.update_data(note_list=notes_dict)
         in_kb = []
         for key in notes_dict:
-            in_kb.append([InlineKeyboardButton(text=f'{key}. {notes_dict[key][0]}[{notes_dict[key][2]}]',
+            in_kb.append([InlineKeyboardButton(text=f'{type_dict[notes_dict[key][2]]}{notes_dict[key][0]}',
                                                callback_data=f'notes_{key}')])
         keyboard = InlineKeyboardMarkup(inline_keyboard=in_kb, resize_keyboard=True, one_time_keyboard=True)
         await message.answer("Ваши заметки", reply_markup=keyboard)
@@ -100,8 +103,8 @@ async def note_view(call: CallbackQuery, state: FSMContext):
     await state.set_state(Notes.note_all)
     data_state = await state.get_data()
     num = int(data_state['note_namber'])
-    await call.message.answer(f"{num}. {data_state['note_list'][num][0]}[{data_state['note_list'][num][2]}]",
-                         reply_markup=kb.edit_note)
+    await call.message.answer(f"{type_dict[data_state['note_list'][num][2]]}{data_state['note_list'][num][0]}",
+                              reply_markup=kb.edit_note)
     await call.answer()
 
 
