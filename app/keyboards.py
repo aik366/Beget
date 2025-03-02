@@ -26,10 +26,8 @@ edit = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)
 
 edit_note = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='👁️Просмотр', callback_data='note_view'),
-     InlineKeyboardButton(text='🗑️Удалить', callback_data='note_delete'), ],
     [InlineKeyboardButton(text='✏️Редактировать', callback_data='note_edit'),
-     InlineKeyboardButton(text='❌Отмена', callback_data='cancel_note')], ], resize_keyboard=True)
+     InlineKeyboardButton(text='🗑️Удалить', callback_data='note_delete'), ], ], resize_keyboard=True)
 
 delete = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='🗑️Удалить', callback_data='delete'),
@@ -41,13 +39,11 @@ note_delete = InlineKeyboardMarkup(inline_keyboard=[
 
 note_edit = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Имя заметки', callback_data='edit_name'),
-     InlineKeyboardButton(text='Текст заметки', callback_data='edit_text'),
-     InlineKeyboardButton(text='❌Отмена', callback_data='cancel_note')], ], resize_keyboard=True)
+     InlineKeyboardButton(text='Текст заметки', callback_data='edit_text'),], ], resize_keyboard=True)
 
 note_edit_content = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='Добавить', callback_data='add_text'),
-     InlineKeyboardButton(text='Новый', callback_data='new_text'),
-     InlineKeyboardButton(text='❌Отмена', callback_data='cancel_note')], ], resize_keyboard=True)
+     InlineKeyboardButton(text='Новый', callback_data='new_text'),], ], resize_keyboard=True)
 
 cancel_one = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='❌Отмена', callback_data='cancel')], ], resize_keyboard=True)

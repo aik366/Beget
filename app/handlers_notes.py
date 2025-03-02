@@ -104,36 +104,27 @@ async def note_view(call: CallbackQuery, state: FSMContext):
     await state.set_state(Notes.note_all)
     data_state = await state.get_data()
     num = int(data_state['note_namber'])
-    await call.message.answer(f"{type_dict[data_state['note_list'][num][2]]}{data_state['note_list'][num][0]}",
-                              reply_markup=kb.edit_note)
-    await call.answer()
-
-
-@router_notes.callback_query(Notes.note_all, F.data == 'note_view')
-async def view_note(call: CallbackQuery, state: FSMContext):
-    data_state = await state.get_data()
-    num = int(data_state['note_namber'])
     if data_state['note_list'][num][2] == 'photo':
         await call.message.answer_photo(data_state['note_list'][num][3], caption=f"{data_state['note_list'][num][1]}",
-                                        reply_markup=kb.note_list)
+                                        reply_markup=kb.edit_note)
     elif data_state['note_list'][num][2] == 'document':
         await call.message.answer_document(data_state['note_list'][num][3],
                                            caption=f"{data_state['note_list'][num][1]}",
-                                           reply_markup=kb.note_list)
+                                           reply_markup=kb.edit_note)
     elif data_state['note_list'][num][2] == 'voice':
         await call.message.answer_voice(data_state['note_list'][num][3],
                                         caption=f"{data_state['note_list'][num][1]}",
-                                        reply_markup=kb.note_list)
+                                        reply_markup=kb.edit_note)
     elif data_state['note_list'][num][2] == 'audio':
         await call.message.answer_audio(data_state['note_list'][num][3],
                                         caption=f"{data_state['note_list'][num][1]}",
-                                        reply_markup=kb.note_list)
+                                        reply_markup=kb.edit_note)
     elif data_state['note_list'][num][2] == 'video':
         await call.message.answer_video(data_state['note_list'][num][3],
                                         caption=f"{data_state['note_list'][num][1]}",
-                                        reply_markup=kb.note_list)
+                                        reply_markup=kb.edit_note)
     elif data_state['note_list'][num][2] == 'text':
-        await call.message.answer(f"{data_state['note_list'][num][1]}", reply_markup=kb.note_list)
+        await call.message.answer(f"{data_state['note_list'][num][1]}", reply_markup=kb.edit_note)
     await call.answer()
 
 
@@ -223,7 +214,8 @@ async def delete_note(call: CallbackQuery, state: FSMContext):
     await state.set_state(Notes.note_delete)
     data_state = await state.get_data()
     num = int(data_state['note_namber'])
-    await call.message.answer(f"{num}. {data_state['note_list'][num][0]}", reply_markup=kb.note_delete)
+    await call.message.answer(f"{type_dict[data_state['note_list'][num][2]]}{data_state['note_list'][num][0]}",
+                              reply_markup=kb.note_delete)
     await call.answer()
 
 
@@ -257,5 +249,12 @@ async def cancel(call: CallbackQuery, state: FSMContext):
 @router_notes.callback_query(F.data == 'cancel_note')
 async def cancel_note(call: CallbackQuery, state: FSMContext):
     await call.message.answer("Действие отменено", reply_markup=kb.note_list)
+    await state.clear()
+    await call.answer()
+
+
+@router_notes.callback_query()
+async def note_callback(call: CallbackQuery, state: FSMContext):
+    await call.message.answer("Начните заново", reply_markup=kb.note_list)
     await state.clear()
     await call.answer()
