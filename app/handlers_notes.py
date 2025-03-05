@@ -82,8 +82,8 @@ async def save_note(message: Message, state: FSMContext):
     await state.clear()
 
 
-type_dict = {'text': '📝', 'photo': '🖼️', 'document': '📄', 'voice': '🎤', 'audio': '🎵', 'video': '🎞',
-             'video_note': '🎞'}
+type_dict = {'text': '📝', 'photo': '🖼️', 'document': '📄', 'voice': '🎤', 'audio': '🎵', 'video': '📽️',
+             'video_note': '🎦'}
 
 
 @router_notes.message(F.text == '📋Мои заметки')
