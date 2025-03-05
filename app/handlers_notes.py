@@ -26,7 +26,7 @@ class Notes(StatesGroup):
 @router_notes.message(F.text == '📝Заметки')
 async def note_text(message: Message, state: FSMContext):
     await state.clear()
-    await message.answer("Ты в меню добавления заметок.\nВыбери необходимое действие.", reply_markup=kb.note_list)
+    await message.answer("Это меню заметок", reply_markup=kb.note_list)
 
 
 @router_notes.message(F.text == '📝Добавить заметку')
