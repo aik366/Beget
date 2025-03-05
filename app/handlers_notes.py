@@ -47,6 +47,7 @@ async def text_note(message: Message, state: FSMContext):
 @router_notes.message(Notes.fsm_note_text)
 async def save_note(message: Message, state: FSMContext):
     file_id, note_type = None, None
+    print(message.content_type)
     if message.content_type == 'text':
         await state.update_data(fsm_note_text=message.text)
         data_state = await state.get_data()
@@ -69,6 +70,9 @@ async def save_note(message: Message, state: FSMContext):
     elif message.content_type == 'video':
         file_id = message.video.file_id
         note_type = 'video'
+    elif message.content_type == 'video_note':
+        file_id = message.video_note.file_id
+        note_type = 'video_note'
     caption_text = message.caption if message.caption else '----'
     await state.update_data(fsm_note_text=caption_text)
     data_state = await state.get_data()
@@ -78,7 +82,8 @@ async def save_note(message: Message, state: FSMContext):
     await state.clear()
 
 
-type_dict = {'text': '📝', 'photo': '🖼️', 'document': '📄', 'voice': '🎤', 'audio': '🎵', 'video': '🎞'}
+type_dict = {'text': '📝', 'photo': '🖼️', 'document': '📄', 'voice': '🎤', 'audio': '🎵', 'video': '🎞',
+             'video_note': '🎞'}
 
 
 @router_notes.message(F.text == '📋Мои заметки')
@@ -123,6 +128,10 @@ async def note_view(call: CallbackQuery, state: FSMContext):
         await call.message.answer_video(data_state['note_list'][num][3],
                                         caption=f"{data_state['note_list'][num][1]}",
                                         reply_markup=kb.edit_note)
+    elif data_state['note_list'][num][2] == 'video_note':
+        await call.message.answer_video_note(data_state['note_list'][num][3],
+                                             caption=f"{data_state['note_list'][num][1]}",
+                                             reply_markup=kb.edit_note)
     elif data_state['note_list'][num][2] == 'text':
         await call.message.answer(f"{data_state['note_list'][num][1]}", reply_markup=kb.edit_note)
     await call.answer()
