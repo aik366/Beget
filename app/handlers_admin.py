@@ -24,7 +24,7 @@ class PhotoForm(StatesGroup):
 @router_admin.message(F.text == 'Удалить данные')
 async def delete_user(message: Message, state: FSMContext):
     await state.set_state(Reg.del_user)
-    await message.answer('Введите Ф.И.\nПример: Иванов Иван')
+    await message.answer(f'{await db.select_data()}\nВведите Ф.И.\nПример: Иванов Иван')
 
 
 @router_admin.message(Reg.del_user)
@@ -106,7 +106,10 @@ async def viev_id(message: Message, state: FSMContext):
 @router_admin.message(F.text == '🗑️Удалить по ID')
 async def delete_id(message: Message, state: FSMContext):
     await state.set_state(Reg.del_id)
-    await message.answer('Введите ID')
+    user_id = ''
+    for tg_id, name, data in await db.db_select_users():
+        user_id += f"{tg_id} {name}\n"
+    await message.answer(f"{user_id}\nВведите ID")
 
 
 @router_admin.message(Reg.del_id)
