@@ -76,6 +76,6 @@ def copy_database_users():
 
 if __name__ == '__main__':
     pass
-    # copy_files_to_server()
+    copy_files_to_server()
     # copy_database_users()
     # copy_database_birthday()
