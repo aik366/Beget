@@ -22,7 +22,7 @@ async def main():
     scheduler.add_job(open_birthday, trigger='cron', hour=12, minute=00, start_date=datetime.now(), kwargs={"bot": bot})
     scheduler.add_job(open_birthday_reminder, trigger='cron', hour=12, minute=00, start_date=datetime.now(),
                       kwargs={"bot": bot})
-    scheduler.add_job(all_func, trigger='cron', hour=15, minute=00, start_date=datetime.now(), kwargs={"bot": bot})
+    # scheduler.add_job(all_func, trigger='cron', hour=15, minute=00, start_date=datetime.now(), kwargs={"bot": bot})
     scheduler.start()
 
     dp.include_routers(router, router_notes, router_admin)
