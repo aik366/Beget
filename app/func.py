@@ -161,4 +161,4 @@ async def bodyWeightIndex(weight, height):
 
 
 if __name__ == '__main__':
-    print(asyncio.run(body_Weight_Index(66, 167)))
+    print(asyncio.run(bodyWeightIndex(66, 167)))
