@@ -142,5 +142,23 @@ async def all_func(bot: Bot):
             await bot.send_message(MY_ID, f'Ошибка при отправке анекдота пользователю {bot_id}: {e}')
 
 
+async def bodyWeightIndex(weight, height):
+    try:
+        bmi = weight / ((height / 100) ** 2)
+        category = "Ожирение"
+        if bmi < 18.5:
+            category = "Недостаточный вес"
+        elif 18.5 <= bmi < 24.9:
+            category = "Нормальный вес"
+        elif 25 <= bmi < 29.9:
+            category = "Избыточный вес"
+        return f"Ваш ИМТ: {bmi:.2f}\nУ вас: {category}"
+    except Exception as e:
+        if e == ZeroDivisionError:
+            return "Вы ввели некорректные данные"
+        else:
+            return f"Ошибка: {e}"
+
+
 if __name__ == '__main__':
-    print(asyncio.run(get_weather_forecast()))
+    print(asyncio.run(body_Weight_Index(66, 167)))

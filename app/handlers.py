@@ -30,6 +30,7 @@ class Form(StatesGroup):
     surname_edit = State()
     name_edit = State()
     data_edit = State()
+    body_Index = State()
 
 
 def validate_name(name):
@@ -298,6 +299,22 @@ async def add_user_reg(message: Message, state: FSMContext):
     else:
         await message.answer('Такой запись уже есть', reply_markup=kb.add_user_data)
     await state.clear()
+
+
+@router.message(F.text == '⚖️Индекс массы тела')
+async def body_index(message: Message, state: FSMContext):
+    await message.answer('Введите ваш вес в кг:\nИ через пробел ваш рост в см:')
+    await state.set_state(Form.body_Index)
+
+
+@router.message(Form.body_Index)
+async def body_Weight_Index(message: Message, state: FSMContext):
+    if message.text.count(' ') == 1:
+        weight, height = message.text.split()
+        await message.answer(f'{await fn.bodyWeightIndex(int(weight), int(height))}', reply_markup=kb.add_user_data)
+        await state.clear()
+    else:
+        await message.answer('Вы ввели неверные данные\nПопробуйте ещё раз')
 
 
 @router.message(F.text == '33')
