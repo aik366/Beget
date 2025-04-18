@@ -301,20 +301,146 @@ async def add_user_reg(message: Message, state: FSMContext):
     await state.clear()
 
 
-@router.message(F.text == '⚖️Индекс массы тела')
-async def body_index(message: Message, state: FSMContext):
-    await message.answer('Введите ваш вес в кг:\nИ через пробел ваш рост в см:')
-    await state.set_state(Form.body_Index)
+# Состояния FSM
+class UserData(StatesGroup):
+    waiting_height = State()
+    waiting_age = State()
+    waiting_gender = State()
 
 
-@router.message(Form.body_Index)
-async def body_Weight_Index(message: Message, state: FSMContext):
-    if message.text.count(' ') == 1:
-        weight, height = message.text.split()
-        await message.answer(f'{await fn.bodyWeightIndex(int(weight), int(height))}', reply_markup=kb.add_user_data)
-        await state.clear()
+# Словарь для временного хранения данных
+user_data = {}
+
+
+# Функция расчета веса (из предыдущего примера)
+def calculate_ideal_weight(height_cm: float, age: int, gender: str, formula: str) -> str:
+    height_inch = height_cm / 2.54
+
+    if formula == 'brock':
+        weight = (height_cm - (100 if gender == 'male' else 110)) * 1.15 + (age - 20) * 0.1
+    elif formula == 'brock_simple':
+        weight = height_cm - (100 if gender == 'male' else 110)
+    elif formula == 'lorentz':
+        weight = (height_cm - 100) - (height_cm - 150) / (4 if gender == 'male' else 2)
+    elif formula == 'cooper':
+        weight = (height_cm * (4.0 if gender == 'male' else 3.5) / 2.54 - (128 if gender == 'male' else 108)) * 0.453
+    elif formula == 'devine':
+        weight = (50 if gender == 'male' else 45.5) + 2.3 * (height_inch - 60)
+    elif formula == 'bmi':
+        bmi_ranges = {
+            (19, 24): (19, 24), (25, 34): (20, 25),
+            (35, 44): (21, 26), (45, 54): (22, 27),
+            (55, 64): (23, 28)
+        }
+        age_range = next((k for k in bmi_ranges if k[0] <= age <= k[1]), (20, 25))
+        bmi_min, bmi_max = bmi_ranges.get(age_range, (20, 25))
+        min_weight = bmi_min * (height_cm / 100) ** 2
+        max_weight = bmi_max * (height_cm / 100) ** 2
+        return f"Диапазон: {round(min_weight, 1)}–{round(max_weight, 1)} кг (ИМТ {bmi_min}–{bmi_max})"
     else:
-        await message.answer('Вы ввели неверные данные\nПопробуйте ещё раз')
+        return "Ошибка: неизвестная формула."
+
+    return f"Идеальный вес: {round(weight, 1)} кг"
+
+
+# Клавиатура с формулами
+def get_formulas_keyboard():
+    buttons = [
+        [InlineKeyboardButton(text="Брока (с возрастом)", callback_data="brock")],
+        [InlineKeyboardButton(text="Брока (упрощенная)", callback_data="brock_simple")],
+        [InlineKeyboardButton(text="Лоренца", callback_data="lorentz")],
+        [InlineKeyboardButton(text="Купера", callback_data="cooper")],
+        [InlineKeyboardButton(text="Девина", callback_data="devine")],
+        [InlineKeyboardButton(text="ИМТ (диапазон)", callback_data="bmi")],
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=buttons)
+
+
+@router.message(F.text == '⚖️Идеальный вес')
+async def body_start(message: Message, state: FSMContext):
+    await message.answer("👋 Привет! Давай рассчитаем твой идеальный вес.\nВведи свой рост в см:")
+    await state.set_state(UserData.waiting_height)
+
+
+# Обработка роста
+@router.message(UserData.waiting_height)
+async def process_height(message: Message, state: FSMContext):
+    try:
+        height = float(message.text)
+        if not 100 <= height <= 250:
+            await message.answer("Рост должен быть от 100 до 250 см. Попробуй еще раз!")
+            return
+        await state.update_data(height=height)
+        await message.answer("Теперь введи свой возраст:")
+        await state.set_state(UserData.waiting_age)
+    except ValueError:
+        await message.answer("Нужно ввести число (например, 175).")
+
+
+# Обработка возраста
+@router.message(UserData.waiting_age)
+async def process_age(message: Message, state: FSMContext):
+    try:
+        age = int(message.text)
+        if not 10 <= age <= 120:
+            await message.answer("Возраст должен быть от 10 до 120 лет. Попробуй еще раз!")
+            return
+        await state.update_data(age=age)
+
+        # Клавиатура для выбора пола
+        gender_kb = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="Мужской", callback_data="male")],
+            [InlineKeyboardButton(text="Женский", callback_data="female")]
+        ])
+        await message.answer("Выбери пол:", reply_markup=gender_kb)
+        await state.set_state(UserData.waiting_gender)
+    except ValueError:
+        await message.answer("Нужно ввести целое число (например, 30).")
+
+
+# Обработка пола
+@router.callback_query(UserData.waiting_gender, F.data.in_(["male", "female"]))
+async def process_gender(callback: CallbackQuery, state: FSMContext):
+    gender = callback.data
+    await state.update_data(gender=gender)
+    data = await state.get_data()
+
+    # Сохраняем данные пользователя
+    user_data[callback.from_user.id] = data
+
+    await callback.message.answer(
+        "✅ Данные сохранены!\n"
+        f"Рост: {data['height']} см\n"
+        f"Возраст: {data['age']} лет\n"
+        f"Пол: {'мужской' if gender == 'male' else 'женский'}\n\n"
+        "Выбери формулу для расчета:",
+        reply_markup=get_formulas_keyboard()
+    )
+    await state.clear()
+    await callback.answer()
+
+
+# Обработка выбора формулы
+@router.callback_query(F.data.in_(["brock", "brock_simple", "lorentz", "cooper", "devine", "bmi"]))
+async def process_formula(callback: CallbackQuery):
+    user_id = callback.from_user.id
+    if user_id not in user_data:
+        await callback.message.answer("❌ Данные устарели. Начни заново с /start")
+        return
+
+    data = user_data[user_id]
+    result = calculate_ideal_weight(
+        height_cm=data['height'],
+        age=data['age'],
+        gender=data['gender'],
+        formula=callback.data
+    )
+
+    await callback.message.answer(
+        f"📊 Результат по формуле {callback.data}:\n{result}",
+        reply_markup=get_formulas_keyboard()  # Можно пересчитать
+    )
+    await callback.answer()
 
 
 @router.message(F.text == '33')
