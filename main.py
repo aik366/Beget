@@ -26,7 +26,6 @@ async def main():
     scheduler.start()
 
     dp.include_routers(router, router_notes, router_admin)
-    updater.bot.delete_webhook()
     await dp.start_polling(bot)
 
 
