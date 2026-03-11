@@ -24,10 +24,10 @@ edit = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text='❌Отмена', callback_data='cancel')],
 ], resize_keyboard=True)
 
-# --- ИСПРАВЛЕНО: Добавлена кнопка "🔙 К списку" ---
+
 edit_note = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='✏️Редактировать', callback_data='note_edit'),
-     InlineKeyboardButton(text='🗑️Удалить', callback_data='note_delete')],
+    [InlineKeyboardButton(text='✏️Редактировать', callback_data='note_edit', style='success'),
+     InlineKeyboardButton(text='🗑️Удалить', callback_data='note_delete', style='danger')],
 ], resize_keyboard=True)
 
 # Подтверждение удаления
