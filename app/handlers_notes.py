@@ -246,7 +246,7 @@ async def note_view(call: CallbackQuery, state: FSMContext):
                 reply_markup=kb.edit_note
             )
         elif note_type == 'text':
-            await call.message.answer(
+            await call.message.edit_text(
                 text=caption,
                 parse_mode='HTML',  # ✅ Включено
                 reply_markup=kb.edit_note
