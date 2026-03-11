@@ -96,7 +96,11 @@ async def text_note(message: Message, state: FSMContext):
     await state.update_data(fsm_note_name=message.text)
     await state.set_state(Notes.fsm_note_text)
     await message.answer(
-        "Пишите текст заметки\nили отправьте фото, документ,\nаудио, видео с подписью 👇",
+        "Теперь отправьте содержимое заметки:\n\n"
+        "📝 Текст - для текстовой заметки\n"
+        "📷 Фото - для фото заметки\n"
+        "🎤 Аудио/голосовое - для аудио заметки\n"
+        "🎬 Видео - для видео заметки 👇",
         reply_markup=kb.note_list,
         parse_mode='HTML'
     )

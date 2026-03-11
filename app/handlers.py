@@ -291,7 +291,7 @@ async def add_user_reg(message: Message, state: FSMContext):
     except ValueError:
         return await message.answer("Неверный формат даты! Используйте ДД.ММ.ГГГГ", reply_markup=kb.add_user_data)
 
-    await state.update_data(birthday=message.text)
+    await state.update_data(birthday=message.text.replace(",", "."))
     data_state = await state.get_data()
     if not await db.db_check(data_state['last_name'], data_state['first_name']):
         await db.add_db(message.from_user.id, data_state['last_name'], data_state['first_name'], data_state['birthday'])
