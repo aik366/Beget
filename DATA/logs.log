@@ -1,0 +1,429 @@
+INFO (10.04.2026 09:11:52): Adding job tentatively -- it will be properly scheduled when the scheduler starts (line: 507) [base.py]
+INFO (10.04.2026 09:11:52): Adding job tentatively -- it will be properly scheduled when the scheduler starts (line: 507) [base.py]
+INFO (10.04.2026 09:11:52): Adding job tentatively -- it will be properly scheduled when the scheduler starts (line: 507) [base.py]
+INFO (10.04.2026 09:11:52): Added job "delta_db" to job store "default" (line: 1090) [base.py]
+INFO (10.04.2026 09:11:52): Added job "open_birthday" to job store "default" (line: 1090) [base.py]
+INFO (10.04.2026 09:11:52): Added job "open_birthday_reminder" to job store "default" (line: 1090) [base.py]
+INFO (10.04.2026 09:11:52): Scheduler started (line: 214) [base.py]
+INFO (10.04.2026 09:11:52): Start polling (line: 527) [dispatcher.py]
+INFO (10.04.2026 09:11:55): Run polling for bot @beget_server_bot id=7740369738 - 'Моя семья, дни рождения' (line: 341) [dispatcher.py]
+INFO (10.04.2026 09:18:15): Update id=537631264 is handled. Duration 6101 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+INFO (10.04.2026 09:18:36): Update id=537631265 is handled. Duration 8594 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+ERROR (10.04.2026 09:21:51): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 09:21:51): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 09:22:11): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 09:43:29): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected (line: 219) [dispatcher.py]
+WARNING (10.04.2026 09:43:29): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 09:43:46): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 11:00:49): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 11:00:49): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 11:00:59): Failed to fetch updates - TelegramConflictError: Telegram server says - Conflict: terminated by other getUpdates request; make sure that only one bot instance is running (line: 219) [dispatcher.py]
+WARNING (10.04.2026 11:00:59): Sleep for 1.197025 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 11:01:31): Connection established (tryings = 2, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 11:18:42): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 11:18:42): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 11:18:50): Failed to fetch updates - TelegramConflictError: Telegram server says - Conflict: terminated by other getUpdates request; make sure that only one bot instance is running (line: 219) [dispatcher.py]
+WARNING (10.04.2026 11:18:50): Sleep for 1.310796 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 11:19:02): Connection established (tryings = 2, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 11:50:18): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 11:50:18): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 11:50:32): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 11:50:43): Failed to fetch updates - TelegramConflictError: Telegram server says - Conflict: terminated by other getUpdates request; make sure that only one bot instance is running (line: 219) [dispatcher.py]
+WARNING (10.04.2026 11:50:43): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 11:50:55): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 12:14:36): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:14:36): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:15:47): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:15:47): Sleep for 1.396125 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:16:59): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:16:59): Sleep for 1.848150 seconds and try again... (tryings = 2, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:18:11): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:18:11): Sleep for 2.563598 seconds and try again... (tryings = 3, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:19:24): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:19:24): Sleep for 3.437533 seconds and try again... (tryings = 4, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:20:38): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:20:38): Sleep for 4.365225 seconds and try again... (tryings = 5, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:21:53): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:21:53): Sleep for 5.100311 seconds and try again... (tryings = 6, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:23:09): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:23:09): Sleep for 5.144586 seconds and try again... (tryings = 7, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:24:25): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:24:25): Sleep for 5.127526 seconds and try again... (tryings = 8, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:25:41): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:25:41): Sleep for 5.106621 seconds and try again... (tryings = 9, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:26:57): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:26:57): Sleep for 5.051663 seconds and try again... (tryings = 10, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:28:13): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:28:13): Sleep for 5.050884 seconds and try again... (tryings = 11, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:29:29): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:29:29): Sleep for 4.805022 seconds and try again... (tryings = 12, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:30:44): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:30:44): Sleep for 5.039704 seconds and try again... (tryings = 13, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 12:31:03): Connection established (tryings = 14, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 12:31:14): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:31:14): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:32:25): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:32:25): Sleep for 1.118999 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:33:37): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:33:37): Sleep for 1.293830 seconds and try again... (tryings = 2, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:34:49): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:34:49): Sleep for 1.637380 seconds and try again... (tryings = 3, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:36:01): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:36:01): Sleep for 2.177350 seconds and try again... (tryings = 4, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 12:36:34): Connection established (tryings = 5, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 12:46:53): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:46:53): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 12:47:26): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 12:53:19): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:53:19): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:53:23): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Connect call failed ('149.154.166.110', 443)] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:53:23): Sleep for 1.283545 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:53:25): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Connect call failed ('149.154.166.110', 443)] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:53:25): Sleep for 1.504550 seconds and try again... (tryings = 2, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:53:27): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Connect call failed ('149.154.166.110', 443)] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:53:27): Sleep for 1.893346 seconds and try again... (tryings = 3, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:53:30): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Connect call failed ('149.154.166.110', 443)] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:53:30): Sleep for 2.362084 seconds and try again... (tryings = 4, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:53:32): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Connect call failed ('149.154.166.110', 443)] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:53:32): Sleep for 3.065940 seconds and try again... (tryings = 5, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:53:35): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Connect call failed ('149.154.166.110', 443)] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:53:35): Sleep for 3.753977 seconds and try again... (tryings = 6, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:53:46): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Connect call failed ('149.154.166.110', 443)] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:53:46): Sleep for 4.750007 seconds and try again... (tryings = 7, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 12:55:02): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 12:55:02): Sleep for 5.005391 seconds and try again... (tryings = 8, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 12:55:23): Connection established (tryings = 9, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 13:07:45): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (10.04.2026 13:07:45): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 13:08:00): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 13:31:30): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 13:31:30): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 13:31:44): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 13:32:54): Failed to fetch updates - TelegramConflictError: Telegram server says - Conflict: terminated by other getUpdates request; make sure that only one bot instance is running (line: 219) [dispatcher.py]
+WARNING (10.04.2026 13:32:54): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 13:33:10): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 13:51:03): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (10.04.2026 13:51:03): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 13:51:19): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 13:56:07): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (10.04.2026 13:56:07): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 13:56:22): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 14:14:32): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 14:14:32): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 14:14:53): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 14:38:27): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 14:38:27): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 14:38:45): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 15:16:57): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 15:16:57): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 15:18:09): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 15:18:09): Sleep for 1.401440 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 15:19:12): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [None] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 15:19:12): Sleep for 1.963203 seconds and try again... (tryings = 2, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 15:19:28): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [Connection reset by peer] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 15:19:28): Sleep for 2.535806 seconds and try again... (tryings = 3, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 15:20:26): Connection established (tryings = 4, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 15:31:04): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (10.04.2026 15:31:04): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 15:31:35): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 15:32:10): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (10.04.2026 15:32:10): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 15:32:52): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (10.04.2026 15:38:16): Update id=537631266 is not handled. Duration 60431 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+ERROR (10.04.2026 15:38:16): Cause exception while process update id=537631266 by bot id=7740369738
+TelegramNetworkError: HTTP Client says - Request timeout error (line: 315) [dispatcher.py]
+Traceback (most recent call last):
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiohttp/client.py", line 663, in _request
+    conn = await self._connector.connect(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiohttp/connector.py", line 538, in connect
+    proto = await self._create_connection(req, traces, timeout)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiohttp/connector.py", line 1050, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiohttp/connector.py", line 1353, in _create_direct_connection
+    transp, proto = await self._wrap_create_connection(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiohttp/connector.py", line 1116, in _wrap_create_connection
+    return await self._loop.create_connection(*args, **kwargs, sock=sock)
+  File "/usr/lib/python3.8/asyncio/base_events.py", line 1050, in create_connection
+    transport, protocol = await self._create_connection_transport(
+  File "/usr/lib/python3.8/asyncio/base_events.py", line 1080, in _create_connection_transport
+    await waiter
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/client/session/aiohttp.py", line 181, in make_request
+    async with session.post(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiohttp/client.py", line 1360, in __aenter__
+    self._resp: _RetType = await self._coro
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiohttp/client.py", line 783, in _request
+    break
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiohttp/helpers.py", line 749, in __exit__
+    raise asyncio.TimeoutError from exc_val
+asyncio.exceptions.TimeoutError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/home/tgbot/tg_bot/app/handlers_notes.py", line 188, in my_note_text
+    await message.answer("Ваши заметки", reply_markup=keyboard)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/methods/base.py", line 84, in emit
+    return await bot(self)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/client/bot.py", line 488, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/client/session/base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/client/session/aiohttp.py", line 186, in make_request
+    raise TelegramNetworkError(method=method, message="Request timeout error")
+aiogram.exceptions.TelegramNetworkError: HTTP Client says - Request timeout error
+ERROR (10.04.2026 15:40:39): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (10.04.2026 15:40:39): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 15:40:54): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (10.04.2026 15:48:34): Update id=537631267 is handled. Duration 24424 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+INFO (10.04.2026 15:48:52): Update id=537631268 is handled. Duration 6790 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+ERROR (10.04.2026 17:33:59): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [None] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 17:33:59): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 17:34:23): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 17:44:47): Failed to fetch updates - TelegramNetworkError: HTTP Client says - Request timeout error (line: 219) [dispatcher.py]
+WARNING (10.04.2026 17:44:47): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 17:45:10): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 17:45:28): Failed to fetch updates - TelegramConflictError: Telegram server says - Conflict: terminated by other getUpdates request; make sure that only one bot instance is running (line: 219) [dispatcher.py]
+WARNING (10.04.2026 17:45:28): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 17:45:40): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (10.04.2026 19:39:16): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [None] (line: 219) [dispatcher.py]
+WARNING (10.04.2026 19:39:16): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (10.04.2026 19:40:23): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected (line: 219) [dispatcher.py]
+WARNING (10.04.2026 19:40:23): Sleep for 1.383584 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (10.04.2026 19:40:53): Connection established (tryings = 2, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (10.04.2026 20:16:09): Update id=537631269 is handled. Duration 50974 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+INFO (10.04.2026 20:17:24): Update id=537631270 is not handled. Duration 58265 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+ERROR (10.04.2026 20:17:24): Cause exception while process update id=537631270 by bot id=7740369738
+TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid (line: 315) [dispatcher.py]
+Traceback (most recent call last):
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/middlewares/error.py", line 25, in __call__
+    return await handler(event, data)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/middlewares/user_context.py", line 56, in __call__
+    return await handler(event, data)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/fsm/middleware.py", line 42, in __call__
+    return await handler(event, data)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 174, in _propagate_event
+    response = await router.propagate_event(update_type=update_type, event=event, **kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 141, in _wrapped
+    return await self._propagate_event(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/event/telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/dispatcher/event/handler.py", line 43, in call
+    return await wrapped()
+  File "/home/tgbot/tg_bot/app/handlers_notes.py", line 266, in note_view
+    await call.answer()
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/methods/base.py", line 84, in emit
+    return await bot(self)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/client/bot.py", line 488, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/client/session/base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/client/session/aiohttp.py", line 189, in make_request
+    response = self.check_response(
+  File "/home/tgbot/tg_bot/.venv/lib/python3.8/site-packages/aiogram/client/session/base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: query is too old and response timeout expired or query ID is invalid
+INFO (11.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-12 03:07:00 MSK)" (scheduled at 2026-04-11 03:07:00+03:00) (line: 179) [base.py]
+INFO (11.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-12 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (11.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-12 12:00:00 MSK)" (scheduled at 2026-04-11 12:00:00+03:00) (line: 179) [base.py]
+INFO (11.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-12 12:00:00 MSK)" (scheduled at 2026-04-11 12:00:00+03:00) (line: 179) [base.py]
+INFO (11.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-12 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (11.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-12 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (12.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-13 03:07:00 MSK)" (scheduled at 2026-04-12 03:07:00+03:00) (line: 179) [base.py]
+INFO (12.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-13 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (12.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-13 12:00:00 MSK)" (scheduled at 2026-04-12 12:00:00+03:00) (line: 179) [base.py]
+INFO (12.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-13 12:00:00 MSK)" (scheduled at 2026-04-12 12:00:00+03:00) (line: 179) [base.py]
+INFO (12.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-13 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (12.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-13 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+ERROR (12.04.2026 20:23:44): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (12.04.2026 20:23:44): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (12.04.2026 20:23:56): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (12.04.2026 20:24:16): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (12.04.2026 20:24:16): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (12.04.2026 20:24:29): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (12.04.2026 20:27:53): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (12.04.2026 20:27:53): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (12.04.2026 20:28:07): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (13.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-14 03:07:00 MSK)" (scheduled at 2026-04-13 03:07:00+03:00) (line: 179) [base.py]
+INFO (13.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-14 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (13.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-14 12:00:00 MSK)" (scheduled at 2026-04-13 12:00:00+03:00) (line: 179) [base.py]
+INFO (13.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-14 12:00:00 MSK)" (scheduled at 2026-04-13 12:00:00+03:00) (line: 179) [base.py]
+INFO (13.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-14 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (13.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-14 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+ERROR (13.04.2026 10:19:05): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (13.04.2026 10:19:05): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (13.04.2026 10:19:26): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (13.04.2026 10:19:26): Sleep for 1.200012 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (13.04.2026 10:19:38): Connection established (tryings = 2, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (13.04.2026 22:49:17): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (13.04.2026 22:49:17): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (13.04.2026 22:49:29): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (13.04.2026 22:49:49): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (13.04.2026 22:49:49): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (13.04.2026 22:50:01): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (14.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-15 03:07:00 MSK)" (scheduled at 2026-04-14 03:07:00+03:00) (line: 179) [base.py]
+INFO (14.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-15 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+ERROR (14.04.2026 08:02:11): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected (line: 219) [dispatcher.py]
+WARNING (14.04.2026 08:02:11): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (14.04.2026 08:02:23): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (14.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-15 12:00:00 MSK)" (scheduled at 2026-04-14 12:00:00+03:00) (line: 179) [base.py]
+INFO (14.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-15 12:00:00 MSK)" (scheduled at 2026-04-14 12:00:00+03:00) (line: 179) [base.py]
+INFO (14.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-15 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (14.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-15 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+ERROR (14.04.2026 10:47:44): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (14.04.2026 10:47:44): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (14.04.2026 10:47:59): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (15.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-16 03:07:00 MSK)" (scheduled at 2026-04-15 03:07:00+03:00) (line: 179) [base.py]
+INFO (15.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-16 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (15.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-16 12:00:00 MSK)" (scheduled at 2026-04-15 12:00:00+03:00) (line: 179) [base.py]
+INFO (15.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-16 12:00:00 MSK)" (scheduled at 2026-04-15 12:00:00+03:00) (line: 179) [base.py]
+INFO (15.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-16 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (15.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-16 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+ERROR (15.04.2026 10:11:25): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (15.04.2026 10:11:25): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (15.04.2026 10:11:36): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (16.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-17 03:07:00 MSK)" (scheduled at 2026-04-16 03:07:00+03:00) (line: 179) [base.py]
+INFO (16.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-17 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+ERROR (16.04.2026 07:07:06): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ServerDisconnectedError: Server disconnected (line: 219) [dispatcher.py]
+WARNING (16.04.2026 07:07:06): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (16.04.2026 07:07:17): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (16.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-17 12:00:00 MSK)" (scheduled at 2026-04-16 12:00:00+03:00) (line: 179) [base.py]
+INFO (16.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-17 12:00:00 MSK)" (scheduled at 2026-04-16 12:00:00+03:00) (line: 179) [base.py]
+INFO (16.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-17 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (16.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-17 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (16.04.2026 09:30:22): Update id=537631271 is handled. Duration 274 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+INFO (17.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-18 03:07:00 MSK)" (scheduled at 2026-04-17 03:07:00+03:00) (line: 179) [base.py]
+INFO (17.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-18 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (17.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-18 12:00:00 MSK)" (scheduled at 2026-04-17 12:00:00+03:00) (line: 179) [base.py]
+INFO (17.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-18 12:00:00 MSK)" (scheduled at 2026-04-17 12:00:00+03:00) (line: 179) [base.py]
+INFO (17.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-18 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (17.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-18 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (18.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-19 03:07:00 MSK)" (scheduled at 2026-04-18 03:07:00+03:00) (line: 179) [base.py]
+INFO (18.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-19 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (18.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-19 12:00:00 MSK)" (scheduled at 2026-04-18 12:00:00+03:00) (line: 179) [base.py]
+INFO (18.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-19 12:00:00 MSK)" (scheduled at 2026-04-18 12:00:00+03:00) (line: 179) [base.py]
+INFO (18.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-19 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (18.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-19 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (18.04.2026 10:02:41): Update id=537631272 is handled. Duration 292 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+INFO (18.04.2026 10:02:45): Update id=537631273 is handled. Duration 130 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+INFO (18.04.2026 10:02:46): Update id=537631274 is handled. Duration 100 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+INFO (18.04.2026 10:02:53): Update id=537631275 is handled. Duration 200 ms by bot id=7740369738 (line: 172) [dispatcher.py]
+INFO (19.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-20 03:07:00 MSK)" (scheduled at 2026-04-19 03:07:00+03:00) (line: 179) [base.py]
+INFO (19.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-20 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (19.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-20 12:00:00 MSK)" (scheduled at 2026-04-19 12:00:00+03:00) (line: 179) [base.py]
+INFO (19.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-20 12:00:00 MSK)" (scheduled at 2026-04-19 12:00:00+03:00) (line: 179) [base.py]
+INFO (19.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-20 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (19.04.2026 09:00:01): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-20 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+ERROR (19.04.2026 19:19:17): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (19.04.2026 19:19:17): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+ERROR (19.04.2026 19:19:19): Failed to fetch updates - TelegramConflictError: Telegram server says - Conflict: terminated by other getUpdates request; make sure that only one bot instance is running (line: 219) [dispatcher.py]
+WARNING (19.04.2026 19:19:19): Sleep for 1.217871 seconds and try again... (tryings = 1, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (19.04.2026 19:19:30): Connection established (tryings = 2, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (19.04.2026 22:17:48): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (19.04.2026 22:17:48): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (19.04.2026 22:17:59): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (19.04.2026 22:18:10): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (19.04.2026 22:18:10): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (19.04.2026 22:18:21): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+ERROR (19.04.2026 22:18:21): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientOSError: [Errno 104] Connection reset by peer (line: 219) [dispatcher.py]
+WARNING (19.04.2026 22:18:21): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (19.04.2026 22:18:32): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (20.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-21 03:07:00 MSK)" (scheduled at 2026-04-20 03:07:00+03:00) (line: 179) [base.py]
+INFO (20.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-21 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (20.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-21 12:00:00 MSK)" (scheduled at 2026-04-20 12:00:00+03:00) (line: 179) [base.py]
+INFO (20.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-21 12:00:00 MSK)" (scheduled at 2026-04-20 12:00:00+03:00) (line: 179) [base.py]
+INFO (20.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-21 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (20.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-21 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (21.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-22 03:07:00 MSK)" (scheduled at 2026-04-21 03:07:00+03:00) (line: 179) [base.py]
+INFO (21.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-22 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (21.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-22 12:00:00 MSK)" (scheduled at 2026-04-21 12:00:00+03:00) (line: 179) [base.py]
+INFO (21.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-22 12:00:00 MSK)" (scheduled at 2026-04-21 12:00:00+03:00) (line: 179) [base.py]
+INFO (21.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-22 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (21.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-22 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (22.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-23 03:07:00 MSK)" (scheduled at 2026-04-22 03:07:00+03:00) (line: 179) [base.py]
+INFO (22.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-23 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (22.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-23 12:00:00 MSK)" (scheduled at 2026-04-22 12:00:00+03:00) (line: 179) [base.py]
+INFO (22.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-23 12:00:00 MSK)" (scheduled at 2026-04-22 12:00:00+03:00) (line: 179) [base.py]
+INFO (22.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-23 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (22.04.2026 09:00:02): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-23 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (23.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-24 03:07:00 MSK)" (scheduled at 2026-04-23 03:07:00+03:00) (line: 179) [base.py]
+INFO (23.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-24 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (23.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-24 12:00:00 MSK)" (scheduled at 2026-04-23 12:00:00+03:00) (line: 179) [base.py]
+INFO (23.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-24 12:00:00 MSK)" (scheduled at 2026-04-23 12:00:00+03:00) (line: 179) [base.py]
+INFO (23.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-24 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (23.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-24 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (24.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-25 03:07:00 MSK)" (scheduled at 2026-04-24 03:07:00+03:00) (line: 179) [base.py]
+INFO (24.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-25 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (24.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-25 12:00:00 MSK)" (scheduled at 2026-04-24 12:00:00+03:00) (line: 179) [base.py]
+INFO (24.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-25 12:00:00 MSK)" (scheduled at 2026-04-24 12:00:00+03:00) (line: 179) [base.py]
+INFO (24.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-25 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (24.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-25 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (25.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-26 03:07:00 MSK)" (scheduled at 2026-04-25 03:07:00+03:00) (line: 179) [base.py]
+INFO (25.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-26 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (25.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-26 12:00:00 MSK)" (scheduled at 2026-04-25 12:00:00+03:00) (line: 179) [base.py]
+INFO (25.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-26 12:00:00 MSK)" (scheduled at 2026-04-25 12:00:00+03:00) (line: 179) [base.py]
+INFO (25.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-26 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (25.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-26 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+ERROR (25.04.2026 18:21:47): Failed to fetch updates - TelegramNetworkError: HTTP Client says - ClientConnectorError: Cannot connect to host api.telegram.org:443 ssl:default [None] (line: 219) [dispatcher.py]
+WARNING (25.04.2026 18:21:47): Sleep for 1.000000 seconds and try again... (tryings = 0, bot id = 7740369738) (line: 221) [dispatcher.py]
+INFO (25.04.2026 18:21:59): Connection established (tryings = 1, bot id = 7740369738) (line: 233) [dispatcher.py]
+INFO (26.04.2026 00:07:00): Running job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-27 03:07:00 MSK)" (scheduled at 2026-04-26 03:07:00+03:00) (line: 179) [base.py]
+INFO (26.04.2026 00:07:00): Job "delta_db (trigger: cron[hour='3', minute='7'], next run at: 2026-04-27 03:07:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (26.04.2026 09:00:00): Running job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-27 12:00:00 MSK)" (scheduled at 2026-04-26 12:00:00+03:00) (line: 179) [base.py]
+INFO (26.04.2026 09:00:00): Running job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-27 12:00:00 MSK)" (scheduled at 2026-04-26 12:00:00+03:00) (line: 179) [base.py]
+INFO (26.04.2026 09:00:00): Job "open_birthday_reminder (trigger: cron[hour='12', minute='0'], next run at: 2026-04-27 12:00:00 MSK)" executed successfully (line: 203) [base.py]
+INFO (26.04.2026 09:00:00): Job "open_birthday (trigger: cron[hour='12', minute='0'], next run at: 2026-04-27 12:00:00 MSK)" executed successfully (line: 203) [base.py]
