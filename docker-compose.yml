@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  beget-bot:
+    build: .
+    container_name: beget_bot
+    restart: always
+
+    env_file:
+      - .env
+
+    command: python main.py
