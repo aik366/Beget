@@ -1,0 +1,34 @@
+[Unit]
+Description=Telegram bot
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=tgbot
+WorkingDirectory=/home/tgbot/tg_bot/
+ExecStart=/home/tgbot/tg_bot/.venv/bin/python3 main.py
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+scp C:\33.txt tgbot@90.156.170.66:/home/tgbot/tg_bot/
+pscp -pw 1972 C:\33.txt tgbot@90.156.170.66:/home/tgbot/tg_bot/
+pscp -pw 1972 C:\pythonProject\Raznoe\Beget\app\handlers.py tgbot@90.156.170.66:/home/tgbot/tg_bot/app/
+pscp -pw 1972 C:\pythonProject\Raznoe\Beget\app\handlers.py tgbot@90.156.170.66:/home/tgbot/tg_bot_gal/app/
+
+
+cd tg_bot
+source .venv/bin/activate
+pip install
+
+sudo systemctl daemon-reload
+sudo systemctl start tg_bot.service
+sudo systemctl stop tg_bot.service
+sudo systemctl enable tg_bot.service
+sudo systemctl status tg_bot.service
+sudo systemctl restart tg_bot.service 
+sudo systemctl restart tg_bot_gal.service 
+ps aux | grep main.py
