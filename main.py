@@ -3,7 +3,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from config import TOKEN
+# from config import TOKEN
 from app.handlers import router
 from app.handlers_notes import router_notes
 from app.handlers_admin import router_admin
@@ -11,10 +11,14 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime
 from app.func import open_birthday, open_birthday_reminder, all_func
 from app.database import delta_db
+import os
+
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 
 async def main():
-    bot: Bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot: Bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp: Dispatcher = Dispatcher()
 
     scheduler = AsyncIOScheduler(timezone="Europe/Moscow")
