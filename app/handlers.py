@@ -37,7 +37,7 @@ def validate_name(name):
     return len(name) >= 2 and name.isalpha()
 
 
-@router.message(CommandStart())
+@router.message(Command('start'))
 async def cmd_start(message: Message, bot: Bot, state: FSMContext):
     await db.start_db(message.from_user.id, message.from_user.full_name)
     if message.from_user.id != MY_ID:

@@ -9,6 +9,7 @@ __pycache__/
 config.py
 DATA/
 .idea/
+.env
 
 # Distribution / packaging
 .Python
