@@ -7,9 +7,5 @@ services:
     environment:
       BOT_TOKEN: ${BOT_TOKEN}
 
-    volumes:
-      - ./DATA:/app/DATA
-      - ./files:/app/files
-      - ./images:/app/images
 
     command: python main.py
